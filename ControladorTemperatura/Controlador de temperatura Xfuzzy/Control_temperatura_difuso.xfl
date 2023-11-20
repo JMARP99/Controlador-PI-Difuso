@@ -1,0 +1,52 @@
+operatorset operador {
+   and xfsg.min();
+   or xfsg.max();
+   imp xfsg.min();
+   also xfsg.max();
+   defuz xfl.FuzzyMean();
+}
+
+type error [-200.0,200.0;256] {
+  fam[] xfl.triangular(-133.33333333333331,-66.66666666666666,0.0,66.66666666666669,133.33333333333337);
+  eNG xfsg.triangle(-180.0,-135.0,-90.0);
+  eNM xfsg.triangle(-135.0,-90.0,-45.0);
+  eNP xfsg.triangle(-90.0,-45.0,0.0);
+  eZ xfsg.triangle(-45.0,0.0,45.0);
+  ePP xfsg.triangle(0.0,45.0,90.0);
+  ePM xfsg.triangle(45.0,90.0,135.0);
+  ePG xfsg.triangle(90.0,135.0,180.0);
+}
+
+type CambioError [-4.0,4.0;25] {
+  ceNG xfsg.triangle(-4.0,-3.0,-2.0);
+  ceNM xfsg.triangle(-3.0,-2.0,-1.0);
+  ceNP xfsg.triangle(-2.0,-1.0,0.0);
+  ceZ xfsg.triangle(-1.0,0.0,1.0);
+  cePP xfsg.triangle(0.0,1.0,2.0);
+  cePM xfsg.triangle(1.0,2.0,3.0);
+  cePG xfsg.triangle(2.0,3.0,4.0);
+}
+
+type salida [-1.0,1.0;256] {
+  sNG xfsg.triangle(-1.0,-0.75,-0.5);
+  sNM xfsg.triangle(-0.75,-0.5,-0.25);
+  sNP xfsg.triangle(-0.5,-0.25,0.0);
+  sZ xfsg.triangle(-0.25,0.0,0.25);
+  sPP xfsg.triangle(0.0,0.25,0.5);
+  sPM xfsg.triangle(0.25,0.5,0.75);
+  sPG xfsg.triangle(0.5,0.75,1.0);
+}
+
+rulebase reglas_controlador (error error, CambioError CambioError : salida Salida) using operador {
+  if((error == eZ & CambioError == ceNG) | (error == eNP & CambioError == ceNM) | (error == eNP & CambioError == ceNG) | (error == eNM & CambioError == ceNP) | (error == eNM & CambioError == ceNM) | (error == eNM & CambioError == ceNG) | (error == eNG & CambioError == ceZ) | (error == eNG & CambioError == ceNP) | (error == eNG & CambioError == ceNG) | (error == eNG & CambioError == ceNM)) -> Salida = sNG;
+  if((error == ePP & CambioError == ceNG) | (error == eZ & CambioError == ceNM) | (error == eNP & CambioError == ceNP) | (error == eNG & CambioError == cePP) | (error == eNM & CambioError == ceZ)) -> Salida = sNM;
+  if((error == ePM & CambioError == ceNG) | (error == ePP & CambioError == ceNM) | (error == eZ & CambioError == ceNP) | (error == eNP & CambioError == ceZ) | (error == eNG & CambioError == cePM) | (error == eNM & CambioError == cePP)) -> Salida = sNP;
+  if((error == ePG & CambioError == ceNG) | (error == ePM & CambioError == ceNM) | (error == ePP & CambioError == ceNP) | (error == eZ & CambioError == ceZ) | (error == eNP & CambioError == cePP) | (error == eNG & CambioError == cePG) | (error == eNM & CambioError == cePM)) -> Salida = sZ;
+  if((error == ePG & CambioError == ceNM) | (error == ePM & CambioError == ceNP) | (error == ePP & CambioError == ceZ) | (error == eZ & CambioError == cePP) | (error == eNM & CambioError == cePG) | (error == eNP & CambioError == cePM)) -> Salida = sPP;
+  if((error == ePG & CambioError == ceNP) | (error == ePM & CambioError == ceZ) | (error == ePP & CambioError == cePP) | (error == eNP & CambioError == cePG) | (error == eZ & CambioError == cePM)) -> Salida = sPM;
+  if((error == ePG & CambioError == cePG) | (error == ePG & CambioError == cePM) | (error == ePG & CambioError == cePP) | (error == ePG & CambioError == ceZ) | (error == ePM & CambioError == cePG) | (error == ePM & CambioError == cePM) | (error == ePM & CambioError == cePP) | (error == ePP & CambioError == cePG) | (error == eZ & CambioError == cePG) | (error == ePP & CambioError == cePM)) -> Salida = sPG;
+}
+
+system (error error, CambioError CambioError : salida Salida) {
+  reglas_controlador(error, CambioError : Salida);
+ }

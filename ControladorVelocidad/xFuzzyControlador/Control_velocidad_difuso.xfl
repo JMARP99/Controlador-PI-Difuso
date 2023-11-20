@@ -1,0 +1,51 @@
+operatorset operador {
+   and xfsg.min();
+   or xfsg.max();
+   imp xfsg.min();
+   also xfsg.max();
+   defuz xfl.FuzzyMean();
+}
+
+type error [-120.0,120.0;256] {
+  eNG xfsg.triangle(-120.0,-90.0,-60.0);
+  eNM xfsg.triangle(-90.0,-60.0,-30.0);
+  eNP xfsg.triangle(-60.0,-30.0,0.0);
+  eZ xfsg.triangle(-30.0,0.0,30.0);
+  ePP xfsg.triangle(0.0,30.0,60.0);
+  ePM xfsg.triangle(30.0,60.0,90.0);
+  ePG xfsg.triangle(60.0,90.0,120.0);
+}
+
+type CambioError [-8.0,8.0;256] {
+  ceNG xfsg.triangle(-8.0,-6.0,-4.0);
+  ceNM xfsg.triangle(-6.0,-4.0,-2.0);
+  ceNP xfsg.triangle(-4.0,-2.0,0.0);
+  ceZ xfsg.triangle(-2.0,0.0,2.0);
+  cePP xfsg.triangle(0.0,2.0,4.0);
+  cePM xfsg.triangle(2.0,4.0,6.0);
+  cePG xfsg.triangle(4.0,6.0,8.0);
+}
+
+type salida [-1.0,1.0;256] {
+  sNG xfsg.triangle(-1.0,-0.75,-0.5);
+  sNM xfsg.triangle(-0.75,-0.5,-0.25);
+  sNP xfsg.triangle(-0.5,-0.25,0.0);
+  sZ xfsg.triangle(-0.25,0.0,0.25);
+  sPP xfsg.triangle(0.0,0.25,0.5);
+  sPM xfsg.triangle(0.25,0.5,0.75);
+  sPG xfsg.triangle(0.5,0.75,1.0);
+}
+
+rulebase reglas_controlador (error error, CambioError CambioError : salida Salida) using operador {
+  if((error == eNG & CambioError == ceNM) | (error == eNG & CambioError == ceNG) | (error == eNG & CambioError == ceNP) | (error == eNG & CambioError == ceZ) | (error == eNM & CambioError == ceNG) | (error == eNM & CambioError == ceNM) | (error == eNM & CambioError == ceNP) | (error == eNP & CambioError == ceNG) | (error == eZ & CambioError == ceNG) | (error == eNP & CambioError == ceNM)) -> Salida = sNG;
+  if((error == eNM & CambioError == ceZ) | (error == eNG & CambioError == cePP) | (error == eNP & CambioError == ceNP) | (error == ePP & CambioError == ceNG) | (error == eZ & CambioError == ceNM)) -> Salida = sNM;
+  if((error == eNM & CambioError == cePP) | (error == eNG & CambioError == cePM) | (error == eNP & CambioError == ceZ) | (error == eZ & CambioError == ceNP) | (error == ePM & CambioError == ceNG) | (error == ePP & CambioError == ceNM)) -> Salida = sNP;
+  if((error == eNM & CambioError == cePM) | (error == eNG & CambioError == cePG) | (error == eNP & CambioError == cePP) | (error == eZ & CambioError == ceZ) | (error == ePP & CambioError == ceNP) | (error == ePG & CambioError == ceNG) | (error == ePM & CambioError == ceNM)) -> Salida = sZ;
+  if((error == eNP & CambioError == cePM) | (error == eNM & CambioError == cePG) | (error == eZ & CambioError == cePP) | (error == ePP & CambioError == ceZ) | (error == ePG & CambioError == ceNM) | (error == ePM & CambioError == ceNP)) -> Salida = sPP;
+  if((error == eZ & CambioError == cePM) | (error == eNP & CambioError == cePG) | (error == ePP & CambioError == cePP) | (error == ePG & CambioError == ceNP) | (error == ePM & CambioError == ceZ)) -> Salida = sPM;
+  if((error == ePP & CambioError == cePM) | (error == eZ & CambioError == cePG) | (error == ePP & CambioError == cePG) | (error == ePM & CambioError == cePP) | (error == ePM & CambioError == cePM) | (error == ePM & CambioError == cePG) | (error == ePG & CambioError == ceZ) | (error == ePG & CambioError == cePP) | (error == ePG & CambioError == cePG) | (error == ePG & CambioError == cePM)) -> Salida = sPG;
+}
+
+system (error error, CambioError CambioError : salida Salida) {
+  reglas_controlador(error, CambioError : Salida);
+ }

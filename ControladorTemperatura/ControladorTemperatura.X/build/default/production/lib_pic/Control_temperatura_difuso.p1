@@ -1,0 +1,828 @@
+Version 4.0 HI-TECH Software Intermediate Code
+[v F796 `(d ~T0 @X0 0 tf2`d`d ]
+[v F800 `(d ~T0 @X0 0 tf2`d`d ]
+[v F781 `(d ~T0 @X0 0 tf1`d ]
+[v F784 `(d ~T0 @X0 0 t? ]
+[v F786 `(d ~T0 @X0 0 t? ]
+[v F788 `(d ~T0 @X0 0 tf1`i ]
+"15 lib_pic/Control_temperatura_difuso.h
+[; ;lib_pic/Control_temperatura_difuso.h: 15:  typedef struct {
+[s S3 `*F781 1 `*F784 1 `*F786 1 `*F788 1 ]
+[n S3 . equal center basis param ]
+"22
+[; ;lib_pic/Control_temperatura_difuso.h: 22:  typedef struct {
+[s S4 `d 1 `d 1 `d 1 `*F796 1 `*F800 1 `i 1 `*d 1 `i 1 `*d 1 `*S3 1 ]
+[n S4 . min max step imp also length degree inputlength input conc ]
+"21 lib_pic/Control_temperatura_difuso.c
+[; ;lib_pic/Control_temperatura_difuso.c: 21: static double FMF_xfl_triangular_equal(double x, int i, double min, double max, double step, double *p, int length) {
+[v _FMF_xfl_triangular_equal `(d ~T0 @X0 1 sf7`d`i`d`d`d`*d`i ]
+{
+[e :U _FMF_xfl_triangular_equal ]
+[v _x `d ~T0 @X0 1 r1 ]
+[v _i `i ~T0 @X0 1 r2 ]
+[v _min `d ~T0 @X0 1 r3 ]
+[v _max `d ~T0 @X0 1 r4 ]
+[v _step `d ~T0 @X0 1 r5 ]
+[v _p `*d ~T0 @X0 1 r6 ]
+[v _length `i ~T0 @X0 1 r7 ]
+[f ]
+"22
+[; ;lib_pic/Control_temperatura_difuso.c: 22:       double a = (i==0? min-1 : (i==1 ? min : p[i-2]));
+[v _a `d ~T0 @X0 1 a ]
+[e = _a ? == _i -> 0 `i : - _min -> -> 1 `i `d ? == _i -> 1 `i : _min *U + _p * -> - _i -> 2 `i `x -> -> # *U _p `i `x ]
+"23
+[; ;lib_pic/Control_temperatura_difuso.c: 23:       double b = (i==0? min : (i==length+1? max : p[i-1]));
+[v _b `d ~T0 @X0 1 a ]
+[e = _b ? == _i -> 0 `i : _min ? == _i + _length -> 1 `i : _max *U + _p * -> - _i -> 1 `i `x -> -> # *U _p `i `x ]
+"24
+[; ;lib_pic/Control_temperatura_difuso.c: 24:       double c = (i==length? max : (i==length+1? max+1 : p[i]));
+[v _c `d ~T0 @X0 1 a ]
+[e = _c ? == _i _length : _max ? == _i + _length -> 1 `i : + _max -> -> 1 `i `d *U + _p * -> _i `x -> -> # *U _p `i `x ]
+"25
+[; ;lib_pic/Control_temperatura_difuso.c: 25:       return (a<x && x<=b? (x-a)/(b-a) : (b<x && x<c? (c-x)/(c-b) : 0));
+[e ) ? && < _a _x <= _x _b : / - _x _a - _b _a ? && < _b _x < _x _c : / - _c _x - _c _b -> -> 0 `i `d ]
+[e $UE 5  ]
+"26
+[; ;lib_pic/Control_temperatura_difuso.c: 26: }
+[e :UE 5 ]
+}
+"36
+[; ;lib_pic/Control_temperatura_difuso.c: 36: static double MF_xfsg_triangle_equal(double x, double min, double max, double step, double a, double b, double c) {
+[v _MF_xfsg_triangle_equal `(d ~T0 @X0 1 sf7`d`d`d`d`d`d`d ]
+{
+[e :U _MF_xfsg_triangle_equal ]
+[v _x `d ~T0 @X0 1 r1 ]
+[v _min `d ~T0 @X0 1 r2 ]
+[v _max `d ~T0 @X0 1 r3 ]
+[v _step `d ~T0 @X0 1 r4 ]
+[v _a `d ~T0 @X0 1 r5 ]
+[v _b `d ~T0 @X0 1 r6 ]
+[v _c `d ~T0 @X0 1 r7 ]
+[f ]
+"37
+[; ;lib_pic/Control_temperatura_difuso.c: 37:     return (a<x && x<=b? (x-a)/(b-a) : (b<x && x<c? (c-x)/(c-b) : 0));
+[e ) ? && < _a _x <= _x _b : / - _x _a - _b _a ? && < _b _x < _x _c : / - _c _x - _c _b -> -> 0 `i `d ]
+[e $UE 6  ]
+"39
+[; ;lib_pic/Control_temperatura_difuso.c: 39: }
+[e :UE 6 ]
+}
+"49
+[; ;lib_pic/Control_temperatura_difuso.c: 49: static double OP_operador_And(double a, double b) {
+[v _OP_operador_And `(d ~T0 @X0 1 sf2`d`d ]
+{
+[e :U _OP_operador_And ]
+[v _a `d ~T0 @X0 1 r1 ]
+[v _b `d ~T0 @X0 1 r2 ]
+[f ]
+"50
+[; ;lib_pic/Control_temperatura_difuso.c: 50:     return (a<b? a : b);
+[e ) ? < _a _b : _a _b ]
+[e $UE 7  ]
+"52
+[; ;lib_pic/Control_temperatura_difuso.c: 52: }
+[e :UE 7 ]
+}
+"58
+[; ;lib_pic/Control_temperatura_difuso.c: 58: static double OP_operador_Or(double a, double b) {
+[v _OP_operador_Or `(d ~T0 @X0 1 sf2`d`d ]
+{
+[e :U _OP_operador_Or ]
+[v _a `d ~T0 @X0 1 r1 ]
+[v _b `d ~T0 @X0 1 r2 ]
+[f ]
+"59
+[; ;lib_pic/Control_temperatura_difuso.c: 59:     return (a>b? a : b);
+[e ) ? > _a _b : _a _b ]
+[e $UE 8  ]
+"61
+[; ;lib_pic/Control_temperatura_difuso.c: 61: }
+[e :UE 8 ]
+}
+"67
+[; ;lib_pic/Control_temperatura_difuso.c: 67: static double OP_operador_Defuz(FuzzyNumber mf) {
+[v _OP_operador_Defuz `(d ~T0 @X0 1 sf1`S4 ]
+{
+[e :U _OP_operador_Defuz ]
+[v _mf `S4 ~T0 @X0 1 r1 ]
+[f ]
+"68
+[; ;lib_pic/Control_temperatura_difuso.c: 68:  double min = mf.min;
+[v _min `d ~T0 @X0 1 a ]
+[e = _min . _mf 0 ]
+"69
+[; ;lib_pic/Control_temperatura_difuso.c: 69:  double max = mf.max;
+[v _max `d ~T0 @X0 1 a ]
+[e = _max . _mf 1 ]
+"70
+[; ;lib_pic/Control_temperatura_difuso.c: 70:      double num=0, denom=0;
+[v _num `d ~T0 @X0 1 a ]
+[e = _num -> -> 0 `i `d ]
+[v _denom `d ~T0 @X0 1 a ]
+[e = _denom -> -> 0 `i `d ]
+"71
+[; ;lib_pic/Control_temperatura_difuso.c: 71:      int i;
+[v _i `i ~T0 @X0 1 a ]
+"72
+[; ;lib_pic/Control_temperatura_difuso.c: 72:      for(i=0; i<mf.length; i++) {
+{
+[e = _i -> 0 `i ]
+[e $U 13  ]
+[e :U 10 ]
+{
+"73
+[; ;lib_pic/Control_temperatura_difuso.c: 73:       num += mf.degree[i] * mf.conc[i].center();
+[e =+ _num * *U + . _mf 6 * -> _i `x -> -> # *U . _mf 6 `i `x ( *U . *U + . _mf 9 * -> _i `x -> -> # *U . _mf 9 `i `x 1 ..  ]
+"74
+[; ;lib_pic/Control_temperatura_difuso.c: 74:       denom += mf.degree[i];
+[e =+ _denom *U + . _mf 6 * -> _i `x -> -> # *U . _mf 6 `i `x ]
+"75
+[; ;lib_pic/Control_temperatura_difuso.c: 75:      }
+}
+[e ++ _i -> 1 `i ]
+[e :U 13 ]
+[e $ < _i . _mf 5 10  ]
+[e :U 11 ]
+}
+"76
+[; ;lib_pic/Control_temperatura_difuso.c: 76:      if(denom==0) return (min+max)/2;
+[e $ ! == _denom -> -> 0 `i `d 14  ]
+[e ) / + _min _max -> -> 2 `i `d ]
+[e $UE 9  ]
+[e :U 14 ]
+"77
+[; ;lib_pic/Control_temperatura_difuso.c: 77:      return num/denom;
+[e ) / _num _denom ]
+[e $UE 9  ]
+"79
+[; ;lib_pic/Control_temperatura_difuso.c: 79: }
+[e :UE 9 ]
+}
+"90
+[; ;lib_pic/Control_temperatura_difuso.c: 90: static double TP_error_fam_equal(double x, int i){
+[v _TP_error_fam_equal `(d ~T0 @X0 1 sf2`d`i ]
+{
+[e :U _TP_error_fam_equal ]
+[v _x `d ~T0 @X0 1 r1 ]
+[v _i `i ~T0 @X0 1 r2 ]
+[f ]
+[v F849 `d ~T0 @X0 -> 5 `i s ]
+[i F849
+:U ..
+"91
+[; ;lib_pic/Control_temperatura_difuso.c: 91:    double list[5] = {-133.33333333333331,-66.66666666666666,0.0,66.66666666666669,133.33333333333337};
+-U .133.33333333333331
+-U .66.66666666666666
+.0.0
+.66.66666666666669
+.133.33333333333337
+..
+]
+[v _list `d ~T0 @X0 -> 5 `i a ]
+[e = _list F849 ]
+"92
+[; ;lib_pic/Control_temperatura_difuso.c: 92:    return FMF_xfl_triangular_equal(x,i,-200.0,200.0,1.5686274509803921,list,5);
+[e ) ( _FMF_xfl_triangular_equal (4 , , , , , , _x _i -U .200.0 .200.0 .1.5686274509803921 &U _list -> 5 `i ]
+[e $UE 15  ]
+"93
+[; ;lib_pic/Control_temperatura_difuso.c: 93: }
+[e :UE 15 ]
+}
+"99
+[; ;lib_pic/Control_temperatura_difuso.c: 99: static double TP_error_eNG_equal(double x){
+[v _TP_error_eNG_equal `(d ~T0 @X0 1 sf1`d ]
+{
+[e :U _TP_error_eNG_equal ]
+[v _x `d ~T0 @X0 1 r1 ]
+[f ]
+"100
+[; ;lib_pic/Control_temperatura_difuso.c: 100:    return MF_xfsg_triangle_equal(x,-200.0,200.0,1.5686274509803921,-180.0,-135.0,-90.0);
+[e ) ( _MF_xfsg_triangle_equal (4 , , , , , , _x -U .200.0 .200.0 .1.5686274509803921 -U .180.0 -U .135.0 -U .90.0 ]
+[e $UE 16  ]
+"101
+[; ;lib_pic/Control_temperatura_difuso.c: 101: }
+[e :UE 16 ]
+}
+"107
+[; ;lib_pic/Control_temperatura_difuso.c: 107: static double TP_error_eNM_equal(double x){
+[v _TP_error_eNM_equal `(d ~T0 @X0 1 sf1`d ]
+{
+[e :U _TP_error_eNM_equal ]
+[v _x `d ~T0 @X0 1 r1 ]
+[f ]
+"108
+[; ;lib_pic/Control_temperatura_difuso.c: 108:    return MF_xfsg_triangle_equal(x,-200.0,200.0,1.5686274509803921,-135.0,-90.0,-45.0);
+[e ) ( _MF_xfsg_triangle_equal (4 , , , , , , _x -U .200.0 .200.0 .1.5686274509803921 -U .135.0 -U .90.0 -U .45.0 ]
+[e $UE 17  ]
+"109
+[; ;lib_pic/Control_temperatura_difuso.c: 109: }
+[e :UE 17 ]
+}
+"115
+[; ;lib_pic/Control_temperatura_difuso.c: 115: static double TP_error_eNP_equal(double x){
+[v _TP_error_eNP_equal `(d ~T0 @X0 1 sf1`d ]
+{
+[e :U _TP_error_eNP_equal ]
+[v _x `d ~T0 @X0 1 r1 ]
+[f ]
+"116
+[; ;lib_pic/Control_temperatura_difuso.c: 116:    return MF_xfsg_triangle_equal(x,-200.0,200.0,1.5686274509803921,-90.0,-45.0,0.0);
+[e ) ( _MF_xfsg_triangle_equal (4 , , , , , , _x -U .200.0 .200.0 .1.5686274509803921 -U .90.0 -U .45.0 .0.0 ]
+[e $UE 18  ]
+"117
+[; ;lib_pic/Control_temperatura_difuso.c: 117: }
+[e :UE 18 ]
+}
+"123
+[; ;lib_pic/Control_temperatura_difuso.c: 123: static double TP_error_eZ_equal(double x){
+[v _TP_error_eZ_equal `(d ~T0 @X0 1 sf1`d ]
+{
+[e :U _TP_error_eZ_equal ]
+[v _x `d ~T0 @X0 1 r1 ]
+[f ]
+"124
+[; ;lib_pic/Control_temperatura_difuso.c: 124:    return MF_xfsg_triangle_equal(x,-200.0,200.0,1.5686274509803921,-45.0,0.0,45.0);
+[e ) ( _MF_xfsg_triangle_equal (4 , , , , , , _x -U .200.0 .200.0 .1.5686274509803921 -U .45.0 .0.0 .45.0 ]
+[e $UE 19  ]
+"125
+[; ;lib_pic/Control_temperatura_difuso.c: 125: }
+[e :UE 19 ]
+}
+"131
+[; ;lib_pic/Control_temperatura_difuso.c: 131: static double TP_error_ePP_equal(double x){
+[v _TP_error_ePP_equal `(d ~T0 @X0 1 sf1`d ]
+{
+[e :U _TP_error_ePP_equal ]
+[v _x `d ~T0 @X0 1 r1 ]
+[f ]
+"132
+[; ;lib_pic/Control_temperatura_difuso.c: 132:    return MF_xfsg_triangle_equal(x,-200.0,200.0,1.5686274509803921,0.0,45.0,90.0);
+[e ) ( _MF_xfsg_triangle_equal (4 , , , , , , _x -U .200.0 .200.0 .1.5686274509803921 .0.0 .45.0 .90.0 ]
+[e $UE 20  ]
+"133
+[; ;lib_pic/Control_temperatura_difuso.c: 133: }
+[e :UE 20 ]
+}
+"139
+[; ;lib_pic/Control_temperatura_difuso.c: 139: static double TP_error_ePM_equal(double x){
+[v _TP_error_ePM_equal `(d ~T0 @X0 1 sf1`d ]
+{
+[e :U _TP_error_ePM_equal ]
+[v _x `d ~T0 @X0 1 r1 ]
+[f ]
+"140
+[; ;lib_pic/Control_temperatura_difuso.c: 140:    return MF_xfsg_triangle_equal(x,-200.0,200.0,1.5686274509803921,45.0,90.0,135.0);
+[e ) ( _MF_xfsg_triangle_equal (4 , , , , , , _x -U .200.0 .200.0 .1.5686274509803921 .45.0 .90.0 .135.0 ]
+[e $UE 21  ]
+"141
+[; ;lib_pic/Control_temperatura_difuso.c: 141: }
+[e :UE 21 ]
+}
+"147
+[; ;lib_pic/Control_temperatura_difuso.c: 147: static double TP_error_ePG_equal(double x){
+[v _TP_error_ePG_equal `(d ~T0 @X0 1 sf1`d ]
+{
+[e :U _TP_error_ePG_equal ]
+[v _x `d ~T0 @X0 1 r1 ]
+[f ]
+"148
+[; ;lib_pic/Control_temperatura_difuso.c: 148:    return MF_xfsg_triangle_equal(x,-200.0,200.0,1.5686274509803921,90.0,135.0,180.0);
+[e ) ( _MF_xfsg_triangle_equal (4 , , , , , , _x -U .200.0 .200.0 .1.5686274509803921 .90.0 .135.0 .180.0 ]
+[e $UE 22  ]
+"149
+[; ;lib_pic/Control_temperatura_difuso.c: 149: }
+[e :UE 22 ]
+}
+"159
+[; ;lib_pic/Control_temperatura_difuso.c: 159: static double TP_CambioError_ceNG_equal(double x){
+[v _TP_CambioError_ceNG_equal `(d ~T0 @X0 1 sf1`d ]
+{
+[e :U _TP_CambioError_ceNG_equal ]
+[v _x `d ~T0 @X0 1 r1 ]
+[f ]
+"160
+[; ;lib_pic/Control_temperatura_difuso.c: 160:    return MF_xfsg_triangle_equal(x,-4.0,4.0,0.3333333333333333,-4.0,-3.0,-2.0);
+[e ) ( _MF_xfsg_triangle_equal (4 , , , , , , _x -U .4.0 .4.0 .0.3333333333333333 -U .4.0 -U .3.0 -U .2.0 ]
+[e $UE 23  ]
+"161
+[; ;lib_pic/Control_temperatura_difuso.c: 161: }
+[e :UE 23 ]
+}
+"167
+[; ;lib_pic/Control_temperatura_difuso.c: 167: static double TP_CambioError_ceNM_equal(double x){
+[v _TP_CambioError_ceNM_equal `(d ~T0 @X0 1 sf1`d ]
+{
+[e :U _TP_CambioError_ceNM_equal ]
+[v _x `d ~T0 @X0 1 r1 ]
+[f ]
+"168
+[; ;lib_pic/Control_temperatura_difuso.c: 168:    return MF_xfsg_triangle_equal(x,-4.0,4.0,0.3333333333333333,-3.0,-2.0,-1.0);
+[e ) ( _MF_xfsg_triangle_equal (4 , , , , , , _x -U .4.0 .4.0 .0.3333333333333333 -U .3.0 -U .2.0 -U .1.0 ]
+[e $UE 24  ]
+"169
+[; ;lib_pic/Control_temperatura_difuso.c: 169: }
+[e :UE 24 ]
+}
+"175
+[; ;lib_pic/Control_temperatura_difuso.c: 175: static double TP_CambioError_ceNP_equal(double x){
+[v _TP_CambioError_ceNP_equal `(d ~T0 @X0 1 sf1`d ]
+{
+[e :U _TP_CambioError_ceNP_equal ]
+[v _x `d ~T0 @X0 1 r1 ]
+[f ]
+"176
+[; ;lib_pic/Control_temperatura_difuso.c: 176:    return MF_xfsg_triangle_equal(x,-4.0,4.0,0.3333333333333333,-2.0,-1.0,0.0);
+[e ) ( _MF_xfsg_triangle_equal (4 , , , , , , _x -U .4.0 .4.0 .0.3333333333333333 -U .2.0 -U .1.0 .0.0 ]
+[e $UE 25  ]
+"177
+[; ;lib_pic/Control_temperatura_difuso.c: 177: }
+[e :UE 25 ]
+}
+"183
+[; ;lib_pic/Control_temperatura_difuso.c: 183: static double TP_CambioError_ceZ_equal(double x){
+[v _TP_CambioError_ceZ_equal `(d ~T0 @X0 1 sf1`d ]
+{
+[e :U _TP_CambioError_ceZ_equal ]
+[v _x `d ~T0 @X0 1 r1 ]
+[f ]
+"184
+[; ;lib_pic/Control_temperatura_difuso.c: 184:    return MF_xfsg_triangle_equal(x,-4.0,4.0,0.3333333333333333,-1.0,0.0,1.0);
+[e ) ( _MF_xfsg_triangle_equal (4 , , , , , , _x -U .4.0 .4.0 .0.3333333333333333 -U .1.0 .0.0 .1.0 ]
+[e $UE 26  ]
+"185
+[; ;lib_pic/Control_temperatura_difuso.c: 185: }
+[e :UE 26 ]
+}
+"191
+[; ;lib_pic/Control_temperatura_difuso.c: 191: static double TP_CambioError_cePP_equal(double x){
+[v _TP_CambioError_cePP_equal `(d ~T0 @X0 1 sf1`d ]
+{
+[e :U _TP_CambioError_cePP_equal ]
+[v _x `d ~T0 @X0 1 r1 ]
+[f ]
+"192
+[; ;lib_pic/Control_temperatura_difuso.c: 192:    return MF_xfsg_triangle_equal(x,-4.0,4.0,0.3333333333333333,0.0,1.0,2.0);
+[e ) ( _MF_xfsg_triangle_equal (4 , , , , , , _x -U .4.0 .4.0 .0.3333333333333333 .0.0 .1.0 .2.0 ]
+[e $UE 27  ]
+"193
+[; ;lib_pic/Control_temperatura_difuso.c: 193: }
+[e :UE 27 ]
+}
+"199
+[; ;lib_pic/Control_temperatura_difuso.c: 199: static double TP_CambioError_cePM_equal(double x){
+[v _TP_CambioError_cePM_equal `(d ~T0 @X0 1 sf1`d ]
+{
+[e :U _TP_CambioError_cePM_equal ]
+[v _x `d ~T0 @X0 1 r1 ]
+[f ]
+"200
+[; ;lib_pic/Control_temperatura_difuso.c: 200:    return MF_xfsg_triangle_equal(x,-4.0,4.0,0.3333333333333333,1.0,2.0,3.0);
+[e ) ( _MF_xfsg_triangle_equal (4 , , , , , , _x -U .4.0 .4.0 .0.3333333333333333 .1.0 .2.0 .3.0 ]
+[e $UE 28  ]
+"201
+[; ;lib_pic/Control_temperatura_difuso.c: 201: }
+[e :UE 28 ]
+}
+"207
+[; ;lib_pic/Control_temperatura_difuso.c: 207: static double TP_CambioError_cePG_equal(double x){
+[v _TP_CambioError_cePG_equal `(d ~T0 @X0 1 sf1`d ]
+{
+[e :U _TP_CambioError_cePG_equal ]
+[v _x `d ~T0 @X0 1 r1 ]
+[f ]
+"208
+[; ;lib_pic/Control_temperatura_difuso.c: 208:    return MF_xfsg_triangle_equal(x,-4.0,4.0,0.3333333333333333,2.0,3.0,4.0);
+[e ) ( _MF_xfsg_triangle_equal (4 , , , , , , _x -U .4.0 .4.0 .0.3333333333333333 .2.0 .3.0 .4.0 ]
+[e $UE 29  ]
+"209
+[; ;lib_pic/Control_temperatura_difuso.c: 209: }
+[e :UE 29 ]
+}
+"219
+[; ;lib_pic/Control_temperatura_difuso.c: 219: static double TP_salida_sNG_equal(double x){
+[v _TP_salida_sNG_equal `(d ~T0 @X0 1 sf1`d ]
+{
+[e :U _TP_salida_sNG_equal ]
+[v _x `d ~T0 @X0 1 r1 ]
+[f ]
+"220
+[; ;lib_pic/Control_temperatura_difuso.c: 220:    return MF_xfsg_triangle_equal(x,-1.0,1.0,0.00784313725490196,-1.0,-0.75,-0.5);
+[e ) ( _MF_xfsg_triangle_equal (4 , , , , , , _x -U .1.0 .1.0 .0.00784313725490196 -U .1.0 -U .0.75 -U .0.5 ]
+[e $UE 30  ]
+"221
+[; ;lib_pic/Control_temperatura_difuso.c: 221: }
+[e :UE 30 ]
+}
+"223
+[; ;lib_pic/Control_temperatura_difuso.c: 223: static double TP_salida_sNG_center(){
+[v _TP_salida_sNG_center `(d ~T0 @X0 1 sf ]
+{
+[e :U _TP_salida_sNG_center ]
+[f ]
+"224
+[; ;lib_pic/Control_temperatura_difuso.c: 224:    return -0.75;
+[e ) -U .0.75 ]
+[e $UE 31  ]
+"225
+[; ;lib_pic/Control_temperatura_difuso.c: 225: }
+[e :UE 31 ]
+}
+"231
+[; ;lib_pic/Control_temperatura_difuso.c: 231: static double TP_salida_sNM_equal(double x){
+[v _TP_salida_sNM_equal `(d ~T0 @X0 1 sf1`d ]
+{
+[e :U _TP_salida_sNM_equal ]
+[v _x `d ~T0 @X0 1 r1 ]
+[f ]
+"232
+[; ;lib_pic/Control_temperatura_difuso.c: 232:    return MF_xfsg_triangle_equal(x,-1.0,1.0,0.00784313725490196,-0.75,-0.5,-0.25);
+[e ) ( _MF_xfsg_triangle_equal (4 , , , , , , _x -U .1.0 .1.0 .0.00784313725490196 -U .0.75 -U .0.5 -U .0.25 ]
+[e $UE 32  ]
+"233
+[; ;lib_pic/Control_temperatura_difuso.c: 233: }
+[e :UE 32 ]
+}
+"235
+[; ;lib_pic/Control_temperatura_difuso.c: 235: static double TP_salida_sNM_center(){
+[v _TP_salida_sNM_center `(d ~T0 @X0 1 sf ]
+{
+[e :U _TP_salida_sNM_center ]
+[f ]
+"236
+[; ;lib_pic/Control_temperatura_difuso.c: 236:    return -0.5;
+[e ) -U .0.5 ]
+[e $UE 33  ]
+"237
+[; ;lib_pic/Control_temperatura_difuso.c: 237: }
+[e :UE 33 ]
+}
+"243
+[; ;lib_pic/Control_temperatura_difuso.c: 243: static double TP_salida_sNP_equal(double x){
+[v _TP_salida_sNP_equal `(d ~T0 @X0 1 sf1`d ]
+{
+[e :U _TP_salida_sNP_equal ]
+[v _x `d ~T0 @X0 1 r1 ]
+[f ]
+"244
+[; ;lib_pic/Control_temperatura_difuso.c: 244:    return MF_xfsg_triangle_equal(x,-1.0,1.0,0.00784313725490196,-0.5,-0.25,0.0);
+[e ) ( _MF_xfsg_triangle_equal (4 , , , , , , _x -U .1.0 .1.0 .0.00784313725490196 -U .0.5 -U .0.25 .0.0 ]
+[e $UE 34  ]
+"245
+[; ;lib_pic/Control_temperatura_difuso.c: 245: }
+[e :UE 34 ]
+}
+"247
+[; ;lib_pic/Control_temperatura_difuso.c: 247: static double TP_salida_sNP_center(){
+[v _TP_salida_sNP_center `(d ~T0 @X0 1 sf ]
+{
+[e :U _TP_salida_sNP_center ]
+[f ]
+"248
+[; ;lib_pic/Control_temperatura_difuso.c: 248:    return -0.25;
+[e ) -U .0.25 ]
+[e $UE 35  ]
+"249
+[; ;lib_pic/Control_temperatura_difuso.c: 249: }
+[e :UE 35 ]
+}
+"255
+[; ;lib_pic/Control_temperatura_difuso.c: 255: static double TP_salida_sZ_equal(double x){
+[v _TP_salida_sZ_equal `(d ~T0 @X0 1 sf1`d ]
+{
+[e :U _TP_salida_sZ_equal ]
+[v _x `d ~T0 @X0 1 r1 ]
+[f ]
+"256
+[; ;lib_pic/Control_temperatura_difuso.c: 256:    return MF_xfsg_triangle_equal(x,-1.0,1.0,0.00784313725490196,-0.25,0.0,0.25);
+[e ) ( _MF_xfsg_triangle_equal (4 , , , , , , _x -U .1.0 .1.0 .0.00784313725490196 -U .0.25 .0.0 .0.25 ]
+[e $UE 36  ]
+"257
+[; ;lib_pic/Control_temperatura_difuso.c: 257: }
+[e :UE 36 ]
+}
+"259
+[; ;lib_pic/Control_temperatura_difuso.c: 259: static double TP_salida_sZ_center(){
+[v _TP_salida_sZ_center `(d ~T0 @X0 1 sf ]
+{
+[e :U _TP_salida_sZ_center ]
+[f ]
+"260
+[; ;lib_pic/Control_temperatura_difuso.c: 260:    return 0.0;
+[e ) .0.0 ]
+[e $UE 37  ]
+"261
+[; ;lib_pic/Control_temperatura_difuso.c: 261: }
+[e :UE 37 ]
+}
+"267
+[; ;lib_pic/Control_temperatura_difuso.c: 267: static double TP_salida_sPP_equal(double x){
+[v _TP_salida_sPP_equal `(d ~T0 @X0 1 sf1`d ]
+{
+[e :U _TP_salida_sPP_equal ]
+[v _x `d ~T0 @X0 1 r1 ]
+[f ]
+"268
+[; ;lib_pic/Control_temperatura_difuso.c: 268:    return MF_xfsg_triangle_equal(x,-1.0,1.0,0.00784313725490196,0.0,0.25,0.5);
+[e ) ( _MF_xfsg_triangle_equal (4 , , , , , , _x -U .1.0 .1.0 .0.00784313725490196 .0.0 .0.25 .0.5 ]
+[e $UE 38  ]
+"269
+[; ;lib_pic/Control_temperatura_difuso.c: 269: }
+[e :UE 38 ]
+}
+"271
+[; ;lib_pic/Control_temperatura_difuso.c: 271: static double TP_salida_sPP_center(){
+[v _TP_salida_sPP_center `(d ~T0 @X0 1 sf ]
+{
+[e :U _TP_salida_sPP_center ]
+[f ]
+"272
+[; ;lib_pic/Control_temperatura_difuso.c: 272:    return 0.25;
+[e ) .0.25 ]
+[e $UE 39  ]
+"273
+[; ;lib_pic/Control_temperatura_difuso.c: 273: }
+[e :UE 39 ]
+}
+"279
+[; ;lib_pic/Control_temperatura_difuso.c: 279: static double TP_salida_sPM_equal(double x){
+[v _TP_salida_sPM_equal `(d ~T0 @X0 1 sf1`d ]
+{
+[e :U _TP_salida_sPM_equal ]
+[v _x `d ~T0 @X0 1 r1 ]
+[f ]
+"280
+[; ;lib_pic/Control_temperatura_difuso.c: 280:    return MF_xfsg_triangle_equal(x,-1.0,1.0,0.00784313725490196,0.25,0.5,0.75);
+[e ) ( _MF_xfsg_triangle_equal (4 , , , , , , _x -U .1.0 .1.0 .0.00784313725490196 .0.25 .0.5 .0.75 ]
+[e $UE 40  ]
+"281
+[; ;lib_pic/Control_temperatura_difuso.c: 281: }
+[e :UE 40 ]
+}
+"283
+[; ;lib_pic/Control_temperatura_difuso.c: 283: static double TP_salida_sPM_center(){
+[v _TP_salida_sPM_center `(d ~T0 @X0 1 sf ]
+{
+[e :U _TP_salida_sPM_center ]
+[f ]
+"284
+[; ;lib_pic/Control_temperatura_difuso.c: 284:    return 0.5;
+[e ) .0.5 ]
+[e $UE 41  ]
+"285
+[; ;lib_pic/Control_temperatura_difuso.c: 285: }
+[e :UE 41 ]
+}
+"291
+[; ;lib_pic/Control_temperatura_difuso.c: 291: static double TP_salida_sPG_equal(double x){
+[v _TP_salida_sPG_equal `(d ~T0 @X0 1 sf1`d ]
+{
+[e :U _TP_salida_sPG_equal ]
+[v _x `d ~T0 @X0 1 r1 ]
+[f ]
+"292
+[; ;lib_pic/Control_temperatura_difuso.c: 292:    return MF_xfsg_triangle_equal(x,-1.0,1.0,0.00784313725490196,0.5,0.75,1.0);
+[e ) ( _MF_xfsg_triangle_equal (4 , , , , , , _x -U .1.0 .1.0 .0.00784313725490196 .0.5 .0.75 .1.0 ]
+[e $UE 42  ]
+"293
+[; ;lib_pic/Control_temperatura_difuso.c: 293: }
+[e :UE 42 ]
+}
+"295
+[; ;lib_pic/Control_temperatura_difuso.c: 295: static double TP_salida_sPG_center(){
+[v _TP_salida_sPG_center `(d ~T0 @X0 1 sf ]
+{
+[e :U _TP_salida_sPG_center ]
+[f ]
+"296
+[; ;lib_pic/Control_temperatura_difuso.c: 296:    return 0.75;
+[e ) .0.75 ]
+[e $UE 43  ]
+"297
+[; ;lib_pic/Control_temperatura_difuso.c: 297: }
+[e :UE 43 ]
+}
+"303
+[; ;lib_pic/Control_temperatura_difuso.c: 303: static void RL_reglas_controlador(double error, double CambioError, double *Salida) {
+[v _RL_reglas_controlador `(v ~T0 @X0 1 sf3`d`d`*d ]
+{
+[e :U _RL_reglas_controlador ]
+[v _error `d ~T0 @X0 1 r1 ]
+[v _CambioError `d ~T0 @X0 1 r2 ]
+[v _Salida `*d ~T0 @X0 1 r3 ]
+[f ]
+"304
+[; ;lib_pic/Control_temperatura_difuso.c: 304:  double _rl;
+[v __rl `d ~T0 @X0 1 a ]
+"306
+[; ;lib_pic/Control_temperatura_difuso.c: 306:  double _Salida_degree[7];
+[v __Salida_degree `d ~T0 @X0 -> 7 `i a ]
+"307
+[; ;lib_pic/Control_temperatura_difuso.c: 307:  Consequent _Salida_conc[7];
+[v __Salida_conc `S3 ~T0 @X0 -> 7 `i a ]
+"308
+[; ;lib_pic/Control_temperatura_difuso.c: 308:  FuzzyNumber _Salida;
+[v __Salida `S4 ~T0 @X0 1 a ]
+"309
+[; ;lib_pic/Control_temperatura_difuso.c: 309:  _Salida.min = -1.0;
+[e = . __Salida 0 -U .1.0 ]
+"310
+[; ;lib_pic/Control_temperatura_difuso.c: 310:  _Salida.max = 1.0;
+[e = . __Salida 1 .1.0 ]
+"311
+[; ;lib_pic/Control_temperatura_difuso.c: 311:  _Salida.step = 0.00784313725490196;
+[e = . __Salida 2 .0.00784313725490196 ]
+"312
+[; ;lib_pic/Control_temperatura_difuso.c: 312:  _Salida.length = 7;
+[e = . __Salida 5 -> 7 `i ]
+"313
+[; ;lib_pic/Control_temperatura_difuso.c: 313:  _Salida.degree = _Salida_degree;
+[e = . __Salida 6 &U __Salida_degree ]
+"314
+[; ;lib_pic/Control_temperatura_difuso.c: 314:  _Salida.conc = _Salida_conc;
+[e = . __Salida 9 &U __Salida_conc ]
+"315
+[; ;lib_pic/Control_temperatura_difuso.c: 315:  int _Salida_i = 0;
+[v __Salida_i `i ~T0 @X0 1 a ]
+[e = __Salida_i -> 0 `i ]
+"317
+[; ;lib_pic/Control_temperatura_difuso.c: 317:  double _error_eq[7];
+[v __error_eq `d ~T0 @X0 -> 7 `i a ]
+"318
+[; ;lib_pic/Control_temperatura_difuso.c: 318:  _error_eq[0] = TP_error_eNG_equal(error);
+[e = *U + &U __error_eq * -> -> -> 0 `i `ui `ux -> -> # *U &U __error_eq `ui `ux ( _TP_error_eNG_equal (1 _error ]
+"319
+[; ;lib_pic/Control_temperatura_difuso.c: 319:  _error_eq[1] = TP_error_eNM_equal(error);
+[e = *U + &U __error_eq * -> -> -> 1 `i `ui `ux -> -> # *U &U __error_eq `ui `ux ( _TP_error_eNM_equal (1 _error ]
+"320
+[; ;lib_pic/Control_temperatura_difuso.c: 320:  _error_eq[2] = TP_error_eNP_equal(error);
+[e = *U + &U __error_eq * -> -> -> 2 `i `ui `ux -> -> # *U &U __error_eq `ui `ux ( _TP_error_eNP_equal (1 _error ]
+"321
+[; ;lib_pic/Control_temperatura_difuso.c: 321:  _error_eq[3] = TP_error_eZ_equal(error);
+[e = *U + &U __error_eq * -> -> -> 3 `i `ui `ux -> -> # *U &U __error_eq `ui `ux ( _TP_error_eZ_equal (1 _error ]
+"322
+[; ;lib_pic/Control_temperatura_difuso.c: 322:  _error_eq[4] = TP_error_ePP_equal(error);
+[e = *U + &U __error_eq * -> -> -> 4 `i `ui `ux -> -> # *U &U __error_eq `ui `ux ( _TP_error_ePP_equal (1 _error ]
+"323
+[; ;lib_pic/Control_temperatura_difuso.c: 323:  _error_eq[5] = TP_error_ePM_equal(error);
+[e = *U + &U __error_eq * -> -> -> 5 `i `ui `ux -> -> # *U &U __error_eq `ui `ux ( _TP_error_ePM_equal (1 _error ]
+"324
+[; ;lib_pic/Control_temperatura_difuso.c: 324:  _error_eq[6] = TP_error_ePG_equal(error);
+[e = *U + &U __error_eq * -> -> -> 6 `i `ui `ux -> -> # *U &U __error_eq `ui `ux ( _TP_error_ePG_equal (1 _error ]
+"326
+[; ;lib_pic/Control_temperatura_difuso.c: 326:  double _CambioError_eq[7];
+[v __CambioError_eq `d ~T0 @X0 -> 7 `i a ]
+"327
+[; ;lib_pic/Control_temperatura_difuso.c: 327:  _CambioError_eq[0] = TP_CambioError_ceNG_equal(CambioError);
+[e = *U + &U __CambioError_eq * -> -> -> 0 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _TP_CambioError_ceNG_equal (1 _CambioError ]
+"328
+[; ;lib_pic/Control_temperatura_difuso.c: 328:  _CambioError_eq[1] = TP_CambioError_ceNM_equal(CambioError);
+[e = *U + &U __CambioError_eq * -> -> -> 1 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _TP_CambioError_ceNM_equal (1 _CambioError ]
+"329
+[; ;lib_pic/Control_temperatura_difuso.c: 329:  _CambioError_eq[2] = TP_CambioError_ceNP_equal(CambioError);
+[e = *U + &U __CambioError_eq * -> -> -> 2 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _TP_CambioError_ceNP_equal (1 _CambioError ]
+"330
+[; ;lib_pic/Control_temperatura_difuso.c: 330:  _CambioError_eq[3] = TP_CambioError_ceZ_equal(CambioError);
+[e = *U + &U __CambioError_eq * -> -> -> 3 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _TP_CambioError_ceZ_equal (1 _CambioError ]
+"331
+[; ;lib_pic/Control_temperatura_difuso.c: 331:  _CambioError_eq[4] = TP_CambioError_cePP_equal(CambioError);
+[e = *U + &U __CambioError_eq * -> -> -> 4 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _TP_CambioError_cePP_equal (1 _CambioError ]
+"332
+[; ;lib_pic/Control_temperatura_difuso.c: 332:  _CambioError_eq[5] = TP_CambioError_cePM_equal(CambioError);
+[e = *U + &U __CambioError_eq * -> -> -> 5 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _TP_CambioError_cePM_equal (1 _CambioError ]
+"333
+[; ;lib_pic/Control_temperatura_difuso.c: 333:  _CambioError_eq[6] = TP_CambioError_cePG_equal(CambioError);
+[e = *U + &U __CambioError_eq * -> -> -> 6 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _TP_CambioError_cePG_equal (1 _CambioError ]
+"335
+[; ;lib_pic/Control_temperatura_difuso.c: 335:  _rl = OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_And(_error_eq[3],_CambioError_eq[0]),OP_operador_And(_error_eq[2],_CambioError_eq[1])),OP_operador_And(_error_eq[2],_CambioError_eq[0])),OP_operador_And(_error_eq[1],_CambioError_eq[2])),OP_operador_And(_error_eq[1],_CambioError_eq[1])),OP_operador_And(_error_eq[1],_CambioError_eq[0])),OP_operador_And(_error_eq[0],_CambioError_eq[3])),OP_operador_And(_error_eq[0],_CambioError_eq[2])),OP_operador_And(_error_eq[0],_CambioError_eq[0])),OP_operador_And(_error_eq[0],_CambioError_eq[1]));
+[e = __rl ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 3 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 0 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 2 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 1 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 2 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 0 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 1 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 2 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 1 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 1 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 1 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 0 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 0 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 3 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 0 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 2 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 0 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 0 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 0 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 1 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ]
+"336
+[; ;lib_pic/Control_temperatura_difuso.c: 336:  _Salida_degree[_Salida_i] = _rl;
+[e = *U + &U __Salida_degree * -> -> __Salida_i `ui `ux -> -> # *U &U __Salida_degree `ui `ux __rl ]
+"337
+[; ;lib_pic/Control_temperatura_difuso.c: 337:  _Salida_conc[_Salida_i].equal = TP_salida_sNG_equal;
+[e = . *U + &U __Salida_conc * -> -> __Salida_i `ui `ux -> -> # *U &U __Salida_conc `ui `ux 0 &U _TP_salida_sNG_equal ]
+"338
+[; ;lib_pic/Control_temperatura_difuso.c: 338:  _Salida_conc[_Salida_i].center = TP_salida_sNG_center;
+[e = . *U + &U __Salida_conc * -> -> __Salida_i `ui `ux -> -> # *U &U __Salida_conc `ui `ux 1 &U _TP_salida_sNG_center ]
+"339
+[; ;lib_pic/Control_temperatura_difuso.c: 339:  _Salida_i++;
+[e ++ __Salida_i -> 1 `i ]
+"341
+[; ;lib_pic/Control_temperatura_difuso.c: 341:  _rl = OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_And(_error_eq[4],_CambioError_eq[0]),OP_operador_And(_error_eq[3],_CambioError_eq[1])),OP_operador_And(_error_eq[2],_CambioError_eq[2])),OP_operador_And(_error_eq[0],_CambioError_eq[4])),OP_operador_And(_error_eq[1],_CambioError_eq[3]));
+[e = __rl ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 4 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 0 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 3 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 1 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 2 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 2 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 0 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 4 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 1 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 3 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ]
+"342
+[; ;lib_pic/Control_temperatura_difuso.c: 342:  _Salida_degree[_Salida_i] = _rl;
+[e = *U + &U __Salida_degree * -> -> __Salida_i `ui `ux -> -> # *U &U __Salida_degree `ui `ux __rl ]
+"343
+[; ;lib_pic/Control_temperatura_difuso.c: 343:  _Salida_conc[_Salida_i].equal = TP_salida_sNM_equal;
+[e = . *U + &U __Salida_conc * -> -> __Salida_i `ui `ux -> -> # *U &U __Salida_conc `ui `ux 0 &U _TP_salida_sNM_equal ]
+"344
+[; ;lib_pic/Control_temperatura_difuso.c: 344:  _Salida_conc[_Salida_i].center = TP_salida_sNM_center;
+[e = . *U + &U __Salida_conc * -> -> __Salida_i `ui `ux -> -> # *U &U __Salida_conc `ui `ux 1 &U _TP_salida_sNM_center ]
+"345
+[; ;lib_pic/Control_temperatura_difuso.c: 345:  _Salida_i++;
+[e ++ __Salida_i -> 1 `i ]
+"347
+[; ;lib_pic/Control_temperatura_difuso.c: 347:  _rl = OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_And(_error_eq[5],_CambioError_eq[0]),OP_operador_And(_error_eq[4],_CambioError_eq[1])),OP_operador_And(_error_eq[3],_CambioError_eq[2])),OP_operador_And(_error_eq[2],_CambioError_eq[3])),OP_operador_And(_error_eq[0],_CambioError_eq[5])),OP_operador_And(_error_eq[1],_CambioError_eq[4]));
+[e = __rl ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 5 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 0 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 4 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 1 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 3 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 2 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 2 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 3 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 0 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 5 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 1 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 4 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ]
+"348
+[; ;lib_pic/Control_temperatura_difuso.c: 348:  _Salida_degree[_Salida_i] = _rl;
+[e = *U + &U __Salida_degree * -> -> __Salida_i `ui `ux -> -> # *U &U __Salida_degree `ui `ux __rl ]
+"349
+[; ;lib_pic/Control_temperatura_difuso.c: 349:  _Salida_conc[_Salida_i].equal = TP_salida_sNP_equal;
+[e = . *U + &U __Salida_conc * -> -> __Salida_i `ui `ux -> -> # *U &U __Salida_conc `ui `ux 0 &U _TP_salida_sNP_equal ]
+"350
+[; ;lib_pic/Control_temperatura_difuso.c: 350:  _Salida_conc[_Salida_i].center = TP_salida_sNP_center;
+[e = . *U + &U __Salida_conc * -> -> __Salida_i `ui `ux -> -> # *U &U __Salida_conc `ui `ux 1 &U _TP_salida_sNP_center ]
+"351
+[; ;lib_pic/Control_temperatura_difuso.c: 351:  _Salida_i++;
+[e ++ __Salida_i -> 1 `i ]
+"353
+[; ;lib_pic/Control_temperatura_difuso.c: 353:  _rl = OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_And(_error_eq[6],_CambioError_eq[0]),OP_operador_And(_error_eq[5],_CambioError_eq[1])),OP_operador_And(_error_eq[4],_CambioError_eq[2])),OP_operador_And(_error_eq[3],_CambioError_eq[3])),OP_operador_And(_error_eq[2],_CambioError_eq[4])),OP_operador_And(_error_eq[0],_CambioError_eq[6])),OP_operador_And(_error_eq[1],_CambioError_eq[5]));
+[e = __rl ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 6 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 0 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 5 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 1 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 4 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 2 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 3 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 3 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 2 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 4 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 0 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 6 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 1 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 5 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ]
+"354
+[; ;lib_pic/Control_temperatura_difuso.c: 354:  _Salida_degree[_Salida_i] = _rl;
+[e = *U + &U __Salida_degree * -> -> __Salida_i `ui `ux -> -> # *U &U __Salida_degree `ui `ux __rl ]
+"355
+[; ;lib_pic/Control_temperatura_difuso.c: 355:  _Salida_conc[_Salida_i].equal = TP_salida_sZ_equal;
+[e = . *U + &U __Salida_conc * -> -> __Salida_i `ui `ux -> -> # *U &U __Salida_conc `ui `ux 0 &U _TP_salida_sZ_equal ]
+"356
+[; ;lib_pic/Control_temperatura_difuso.c: 356:  _Salida_conc[_Salida_i].center = TP_salida_sZ_center;
+[e = . *U + &U __Salida_conc * -> -> __Salida_i `ui `ux -> -> # *U &U __Salida_conc `ui `ux 1 &U _TP_salida_sZ_center ]
+"357
+[; ;lib_pic/Control_temperatura_difuso.c: 357:  _Salida_i++;
+[e ++ __Salida_i -> 1 `i ]
+"359
+[; ;lib_pic/Control_temperatura_difuso.c: 359:  _rl = OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_And(_error_eq[6],_CambioError_eq[1]),OP_operador_And(_error_eq[5],_CambioError_eq[2])),OP_operador_And(_error_eq[4],_CambioError_eq[3])),OP_operador_And(_error_eq[3],_CambioError_eq[4])),OP_operador_And(_error_eq[1],_CambioError_eq[6])),OP_operador_And(_error_eq[2],_CambioError_eq[5]));
+[e = __rl ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 6 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 1 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 5 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 2 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 4 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 3 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 3 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 4 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 1 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 6 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 2 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 5 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ]
+"360
+[; ;lib_pic/Control_temperatura_difuso.c: 360:  _Salida_degree[_Salida_i] = _rl;
+[e = *U + &U __Salida_degree * -> -> __Salida_i `ui `ux -> -> # *U &U __Salida_degree `ui `ux __rl ]
+"361
+[; ;lib_pic/Control_temperatura_difuso.c: 361:  _Salida_conc[_Salida_i].equal = TP_salida_sPP_equal;
+[e = . *U + &U __Salida_conc * -> -> __Salida_i `ui `ux -> -> # *U &U __Salida_conc `ui `ux 0 &U _TP_salida_sPP_equal ]
+"362
+[; ;lib_pic/Control_temperatura_difuso.c: 362:  _Salida_conc[_Salida_i].center = TP_salida_sPP_center;
+[e = . *U + &U __Salida_conc * -> -> __Salida_i `ui `ux -> -> # *U &U __Salida_conc `ui `ux 1 &U _TP_salida_sPP_center ]
+"363
+[; ;lib_pic/Control_temperatura_difuso.c: 363:  _Salida_i++;
+[e ++ __Salida_i -> 1 `i ]
+"365
+[; ;lib_pic/Control_temperatura_difuso.c: 365:  _rl = OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_And(_error_eq[6],_CambioError_eq[2]),OP_operador_And(_error_eq[5],_CambioError_eq[3])),OP_operador_And(_error_eq[4],_CambioError_eq[4])),OP_operador_And(_error_eq[2],_CambioError_eq[6])),OP_operador_And(_error_eq[3],_CambioError_eq[5]));
+[e = __rl ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 6 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 2 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 5 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 3 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 4 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 4 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 2 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 6 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 3 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 5 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ]
+"366
+[; ;lib_pic/Control_temperatura_difuso.c: 366:  _Salida_degree[_Salida_i] = _rl;
+[e = *U + &U __Salida_degree * -> -> __Salida_i `ui `ux -> -> # *U &U __Salida_degree `ui `ux __rl ]
+"367
+[; ;lib_pic/Control_temperatura_difuso.c: 367:  _Salida_conc[_Salida_i].equal = TP_salida_sPM_equal;
+[e = . *U + &U __Salida_conc * -> -> __Salida_i `ui `ux -> -> # *U &U __Salida_conc `ui `ux 0 &U _TP_salida_sPM_equal ]
+"368
+[; ;lib_pic/Control_temperatura_difuso.c: 368:  _Salida_conc[_Salida_i].center = TP_salida_sPM_center;
+[e = . *U + &U __Salida_conc * -> -> __Salida_i `ui `ux -> -> # *U &U __Salida_conc `ui `ux 1 &U _TP_salida_sPM_center ]
+"369
+[; ;lib_pic/Control_temperatura_difuso.c: 369:  _Salida_i++;
+[e ++ __Salida_i -> 1 `i ]
+"371
+[; ;lib_pic/Control_temperatura_difuso.c: 371:  _rl = OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_And(_error_eq[6],_CambioError_eq[6]),OP_operador_And(_error_eq[6],_CambioError_eq[5])),OP_operador_And(_error_eq[6],_CambioError_eq[4])),OP_operador_And(_error_eq[6],_CambioError_eq[3])),OP_operador_And(_error_eq[5],_CambioError_eq[6])),OP_operador_And(_error_eq[5],_CambioError_eq[5])),OP_operador_And(_error_eq[5],_CambioError_eq[4])),OP_operador_And(_error_eq[4],_CambioError_eq[6])),OP_operador_And(_error_eq[3],_CambioError_eq[6])),OP_operador_And(_error_eq[4],_CambioError_eq[5]));
+[e = __rl ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 6 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 6 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 6 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 5 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 6 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 4 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 6 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 3 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 5 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 6 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 5 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 5 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 5 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 4 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 4 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 6 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 3 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 6 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 4 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 5 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ]
+"372
+[; ;lib_pic/Control_temperatura_difuso.c: 372:  _Salida_degree[_Salida_i] = _rl;
+[e = *U + &U __Salida_degree * -> -> __Salida_i `ui `ux -> -> # *U &U __Salida_degree `ui `ux __rl ]
+"373
+[; ;lib_pic/Control_temperatura_difuso.c: 373:  _Salida_conc[_Salida_i].equal = TP_salida_sPG_equal;
+[e = . *U + &U __Salida_conc * -> -> __Salida_i `ui `ux -> -> # *U &U __Salida_conc `ui `ux 0 &U _TP_salida_sPG_equal ]
+"374
+[; ;lib_pic/Control_temperatura_difuso.c: 374:  _Salida_conc[_Salida_i].center = TP_salida_sPG_center;
+[e = . *U + &U __Salida_conc * -> -> __Salida_i `ui `ux -> -> # *U &U __Salida_conc `ui `ux 1 &U _TP_salida_sPG_center ]
+"375
+[; ;lib_pic/Control_temperatura_difuso.c: 375:  _Salida_i++;
+[e ++ __Salida_i -> 1 `i ]
+"377
+[; ;lib_pic/Control_temperatura_difuso.c: 377:  *Salida = OP_operador_Defuz(_Salida);
+[e = *U _Salida ( _OP_operador_Defuz (1 __Salida ]
+"378
+[; ;lib_pic/Control_temperatura_difuso.c: 378: }
+[e :UE 44 ]
+}
+"385
+[; ;lib_pic/Control_temperatura_difuso.c: 385: void Control_temperatura_difusoInferenceEngine(double error, double CambioError, double *_d_Salida) {
+[v _Control_temperatura_difusoInferenceEngine `(v ~T0 @X0 1 ef3`d`d`*d ]
+{
+[e :U _Control_temperatura_difusoInferenceEngine ]
+[v _error `d ~T0 @X0 1 r1 ]
+[v _CambioError `d ~T0 @X0 1 r2 ]
+[v __d_Salida `*d ~T0 @X0 1 r3 ]
+[f ]
+"386
+[; ;lib_pic/Control_temperatura_difuso.c: 386:  double Salida;
+[v _Salida `d ~T0 @X0 1 a ]
+"387
+[; ;lib_pic/Control_temperatura_difuso.c: 387:  RL_reglas_controlador(error, CambioError, &Salida);
+[e ( _RL_reglas_controlador (3 , , _error _CambioError &U _Salida ]
+"388
+[; ;lib_pic/Control_temperatura_difuso.c: 388:  *_d_Salida = Salida;
+[e = *U __d_Salida _Salida ]
+"389
+[; ;lib_pic/Control_temperatura_difuso.c: 389: }
+[e :UE 45 ]
+}

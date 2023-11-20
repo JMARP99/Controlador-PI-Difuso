@@ -1,0 +1,765 @@
+Version 4.0 HI-TECH Software Intermediate Code
+[v F796 `(d ~T0 @X0 0 tf2`d`d ]
+[v F800 `(d ~T0 @X0 0 tf2`d`d ]
+[v F781 `(d ~T0 @X0 0 tf1`d ]
+[v F784 `(d ~T0 @X0 0 t? ]
+[v F786 `(d ~T0 @X0 0 t? ]
+[v F788 `(d ~T0 @X0 0 tf1`i ]
+"15 lib_pic/Control_velocidad_difuso.h
+[; ;lib_pic/Control_velocidad_difuso.h: 15:  typedef struct {
+[s S3 `*F781 1 `*F784 1 `*F786 1 `*F788 1 ]
+[n S3 . equal center basis param ]
+"22
+[; ;lib_pic/Control_velocidad_difuso.h: 22:  typedef struct {
+[s S4 `d 1 `d 1 `d 1 `*F796 1 `*F800 1 `i 1 `*d 1 `i 1 `*d 1 `*S3 1 ]
+[n S4 . min max step imp also length degree inputlength input conc ]
+"21 lib_pic/Control_velocidad_difuso.c
+[; ;lib_pic/Control_velocidad_difuso.c: 21: static double MF_xfsg_triangle_equal(double x, double min, double max, double step, double a, double b, double c) {
+[v _MF_xfsg_triangle_equal `(d ~T0 @X0 1 sf7`d`d`d`d`d`d`d ]
+{
+[e :U _MF_xfsg_triangle_equal ]
+[v _x `d ~T0 @X0 1 r1 ]
+[v _min `d ~T0 @X0 1 r2 ]
+[v _max `d ~T0 @X0 1 r3 ]
+[v _step `d ~T0 @X0 1 r4 ]
+[v _a `d ~T0 @X0 1 r5 ]
+[v _b `d ~T0 @X0 1 r6 ]
+[v _c `d ~T0 @X0 1 r7 ]
+[f ]
+"22
+[; ;lib_pic/Control_velocidad_difuso.c: 22:     return (a<x && x<=b? (x-a)/(b-a) : (b<x && x<c? (c-x)/(c-b) : 0));
+[e ) ? && < _a _x <= _x _b : / - _x _a - _b _a ? && < _b _x < _x _c : / - _c _x - _c _b -> -> 0 `i `d ]
+[e $UE 5  ]
+"24
+[; ;lib_pic/Control_velocidad_difuso.c: 24: }
+[e :UE 5 ]
+}
+"34
+[; ;lib_pic/Control_velocidad_difuso.c: 34: static double OP_operador_And(double a, double b) {
+[v _OP_operador_And `(d ~T0 @X0 1 sf2`d`d ]
+{
+[e :U _OP_operador_And ]
+[v _a `d ~T0 @X0 1 r1 ]
+[v _b `d ~T0 @X0 1 r2 ]
+[f ]
+"35
+[; ;lib_pic/Control_velocidad_difuso.c: 35:     return (a<b? a : b);
+[e ) ? < _a _b : _a _b ]
+[e $UE 6  ]
+"37
+[; ;lib_pic/Control_velocidad_difuso.c: 37: }
+[e :UE 6 ]
+}
+"43
+[; ;lib_pic/Control_velocidad_difuso.c: 43: static double OP_operador_Or(double a, double b) {
+[v _OP_operador_Or `(d ~T0 @X0 1 sf2`d`d ]
+{
+[e :U _OP_operador_Or ]
+[v _a `d ~T0 @X0 1 r1 ]
+[v _b `d ~T0 @X0 1 r2 ]
+[f ]
+"44
+[; ;lib_pic/Control_velocidad_difuso.c: 44:     return (a>b? a : b);
+[e ) ? > _a _b : _a _b ]
+[e $UE 7  ]
+"46
+[; ;lib_pic/Control_velocidad_difuso.c: 46: }
+[e :UE 7 ]
+}
+"52
+[; ;lib_pic/Control_velocidad_difuso.c: 52: static double OP_operador_Defuz(FuzzyNumber mf) {
+[v _OP_operador_Defuz `(d ~T0 @X0 1 sf1`S4 ]
+{
+[e :U _OP_operador_Defuz ]
+[v _mf `S4 ~T0 @X0 1 r1 ]
+[f ]
+"53
+[; ;lib_pic/Control_velocidad_difuso.c: 53:  double min = mf.min;
+[v _min `d ~T0 @X0 1 a ]
+[e = _min . _mf 0 ]
+"54
+[; ;lib_pic/Control_velocidad_difuso.c: 54:  double max = mf.max;
+[v _max `d ~T0 @X0 1 a ]
+[e = _max . _mf 1 ]
+"55
+[; ;lib_pic/Control_velocidad_difuso.c: 55:      double num=0, denom=0;
+[v _num `d ~T0 @X0 1 a ]
+[e = _num -> -> 0 `i `d ]
+[v _denom `d ~T0 @X0 1 a ]
+[e = _denom -> -> 0 `i `d ]
+"56
+[; ;lib_pic/Control_velocidad_difuso.c: 56:      int i;
+[v _i `i ~T0 @X0 1 a ]
+"57
+[; ;lib_pic/Control_velocidad_difuso.c: 57:      for(i=0; i<mf.length; i++) {
+{
+[e = _i -> 0 `i ]
+[e $U 12  ]
+[e :U 9 ]
+{
+"58
+[; ;lib_pic/Control_velocidad_difuso.c: 58:       num += mf.degree[i] * mf.conc[i].center();
+[e =+ _num * *U + . _mf 6 * -> _i `x -> -> # *U . _mf 6 `i `x ( *U . *U + . _mf 9 * -> _i `x -> -> # *U . _mf 9 `i `x 1 ..  ]
+"59
+[; ;lib_pic/Control_velocidad_difuso.c: 59:       denom += mf.degree[i];
+[e =+ _denom *U + . _mf 6 * -> _i `x -> -> # *U . _mf 6 `i `x ]
+"60
+[; ;lib_pic/Control_velocidad_difuso.c: 60:      }
+}
+[e ++ _i -> 1 `i ]
+[e :U 12 ]
+[e $ < _i . _mf 5 9  ]
+[e :U 10 ]
+}
+"61
+[; ;lib_pic/Control_velocidad_difuso.c: 61:      if(denom==0) return (min+max)/2;
+[e $ ! == _denom -> -> 0 `i `d 13  ]
+[e ) / + _min _max -> -> 2 `i `d ]
+[e $UE 8  ]
+[e :U 13 ]
+"62
+[; ;lib_pic/Control_velocidad_difuso.c: 62:      return num/denom;
+[e ) / _num _denom ]
+[e $UE 8  ]
+"64
+[; ;lib_pic/Control_velocidad_difuso.c: 64: }
+[e :UE 8 ]
+}
+"75
+[; ;lib_pic/Control_velocidad_difuso.c: 75: static double TP_error_eNG_equal(double x){
+[v _TP_error_eNG_equal `(d ~T0 @X0 1 sf1`d ]
+{
+[e :U _TP_error_eNG_equal ]
+[v _x `d ~T0 @X0 1 r1 ]
+[f ]
+"76
+[; ;lib_pic/Control_velocidad_difuso.c: 76:    return MF_xfsg_triangle_equal(x,-120.0,120.0,0.9411764705882353,-120.0,-90.0,-60.0);
+[e ) ( _MF_xfsg_triangle_equal (4 , , , , , , _x -U .120.0 .120.0 .0.9411764705882353 -U .120.0 -U .90.0 -U .60.0 ]
+[e $UE 14  ]
+"77
+[; ;lib_pic/Control_velocidad_difuso.c: 77: }
+[e :UE 14 ]
+}
+"83
+[; ;lib_pic/Control_velocidad_difuso.c: 83: static double TP_error_eNM_equal(double x){
+[v _TP_error_eNM_equal `(d ~T0 @X0 1 sf1`d ]
+{
+[e :U _TP_error_eNM_equal ]
+[v _x `d ~T0 @X0 1 r1 ]
+[f ]
+"84
+[; ;lib_pic/Control_velocidad_difuso.c: 84:    return MF_xfsg_triangle_equal(x,-120.0,120.0,0.9411764705882353,-90.0,-60.0,-30.0);
+[e ) ( _MF_xfsg_triangle_equal (4 , , , , , , _x -U .120.0 .120.0 .0.9411764705882353 -U .90.0 -U .60.0 -U .30.0 ]
+[e $UE 15  ]
+"85
+[; ;lib_pic/Control_velocidad_difuso.c: 85: }
+[e :UE 15 ]
+}
+"91
+[; ;lib_pic/Control_velocidad_difuso.c: 91: static double TP_error_eNP_equal(double x){
+[v _TP_error_eNP_equal `(d ~T0 @X0 1 sf1`d ]
+{
+[e :U _TP_error_eNP_equal ]
+[v _x `d ~T0 @X0 1 r1 ]
+[f ]
+"92
+[; ;lib_pic/Control_velocidad_difuso.c: 92:    return MF_xfsg_triangle_equal(x,-120.0,120.0,0.9411764705882353,-60.0,-30.0,0.0);
+[e ) ( _MF_xfsg_triangle_equal (4 , , , , , , _x -U .120.0 .120.0 .0.9411764705882353 -U .60.0 -U .30.0 .0.0 ]
+[e $UE 16  ]
+"93
+[; ;lib_pic/Control_velocidad_difuso.c: 93: }
+[e :UE 16 ]
+}
+"99
+[; ;lib_pic/Control_velocidad_difuso.c: 99: static double TP_error_eZ_equal(double x){
+[v _TP_error_eZ_equal `(d ~T0 @X0 1 sf1`d ]
+{
+[e :U _TP_error_eZ_equal ]
+[v _x `d ~T0 @X0 1 r1 ]
+[f ]
+"100
+[; ;lib_pic/Control_velocidad_difuso.c: 100:    return MF_xfsg_triangle_equal(x,-120.0,120.0,0.9411764705882353,-30.0,0.0,30.0);
+[e ) ( _MF_xfsg_triangle_equal (4 , , , , , , _x -U .120.0 .120.0 .0.9411764705882353 -U .30.0 .0.0 .30.0 ]
+[e $UE 17  ]
+"101
+[; ;lib_pic/Control_velocidad_difuso.c: 101: }
+[e :UE 17 ]
+}
+"107
+[; ;lib_pic/Control_velocidad_difuso.c: 107: static double TP_error_ePP_equal(double x){
+[v _TP_error_ePP_equal `(d ~T0 @X0 1 sf1`d ]
+{
+[e :U _TP_error_ePP_equal ]
+[v _x `d ~T0 @X0 1 r1 ]
+[f ]
+"108
+[; ;lib_pic/Control_velocidad_difuso.c: 108:    return MF_xfsg_triangle_equal(x,-120.0,120.0,0.9411764705882353,0.0,30.0,60.0);
+[e ) ( _MF_xfsg_triangle_equal (4 , , , , , , _x -U .120.0 .120.0 .0.9411764705882353 .0.0 .30.0 .60.0 ]
+[e $UE 18  ]
+"109
+[; ;lib_pic/Control_velocidad_difuso.c: 109: }
+[e :UE 18 ]
+}
+"115
+[; ;lib_pic/Control_velocidad_difuso.c: 115: static double TP_error_ePM_equal(double x){
+[v _TP_error_ePM_equal `(d ~T0 @X0 1 sf1`d ]
+{
+[e :U _TP_error_ePM_equal ]
+[v _x `d ~T0 @X0 1 r1 ]
+[f ]
+"116
+[; ;lib_pic/Control_velocidad_difuso.c: 116:    return MF_xfsg_triangle_equal(x,-120.0,120.0,0.9411764705882353,30.0,60.0,90.0);
+[e ) ( _MF_xfsg_triangle_equal (4 , , , , , , _x -U .120.0 .120.0 .0.9411764705882353 .30.0 .60.0 .90.0 ]
+[e $UE 19  ]
+"117
+[; ;lib_pic/Control_velocidad_difuso.c: 117: }
+[e :UE 19 ]
+}
+"123
+[; ;lib_pic/Control_velocidad_difuso.c: 123: static double TP_error_ePG_equal(double x){
+[v _TP_error_ePG_equal `(d ~T0 @X0 1 sf1`d ]
+{
+[e :U _TP_error_ePG_equal ]
+[v _x `d ~T0 @X0 1 r1 ]
+[f ]
+"124
+[; ;lib_pic/Control_velocidad_difuso.c: 124:    return MF_xfsg_triangle_equal(x,-120.0,120.0,0.9411764705882353,60.0,90.0,120.0);
+[e ) ( _MF_xfsg_triangle_equal (4 , , , , , , _x -U .120.0 .120.0 .0.9411764705882353 .60.0 .90.0 .120.0 ]
+[e $UE 20  ]
+"125
+[; ;lib_pic/Control_velocidad_difuso.c: 125: }
+[e :UE 20 ]
+}
+"135
+[; ;lib_pic/Control_velocidad_difuso.c: 135: static double TP_CambioError_ceNG_equal(double x){
+[v _TP_CambioError_ceNG_equal `(d ~T0 @X0 1 sf1`d ]
+{
+[e :U _TP_CambioError_ceNG_equal ]
+[v _x `d ~T0 @X0 1 r1 ]
+[f ]
+"136
+[; ;lib_pic/Control_velocidad_difuso.c: 136:    return MF_xfsg_triangle_equal(x,-8.0,8.0,0.06274509803921569,-8.0,-6.0,-4.0);
+[e ) ( _MF_xfsg_triangle_equal (4 , , , , , , _x -U .8.0 .8.0 .0.06274509803921569 -U .8.0 -U .6.0 -U .4.0 ]
+[e $UE 21  ]
+"137
+[; ;lib_pic/Control_velocidad_difuso.c: 137: }
+[e :UE 21 ]
+}
+"143
+[; ;lib_pic/Control_velocidad_difuso.c: 143: static double TP_CambioError_ceNM_equal(double x){
+[v _TP_CambioError_ceNM_equal `(d ~T0 @X0 1 sf1`d ]
+{
+[e :U _TP_CambioError_ceNM_equal ]
+[v _x `d ~T0 @X0 1 r1 ]
+[f ]
+"144
+[; ;lib_pic/Control_velocidad_difuso.c: 144:    return MF_xfsg_triangle_equal(x,-8.0,8.0,0.06274509803921569,-6.0,-4.0,-2.0);
+[e ) ( _MF_xfsg_triangle_equal (4 , , , , , , _x -U .8.0 .8.0 .0.06274509803921569 -U .6.0 -U .4.0 -U .2.0 ]
+[e $UE 22  ]
+"145
+[; ;lib_pic/Control_velocidad_difuso.c: 145: }
+[e :UE 22 ]
+}
+"151
+[; ;lib_pic/Control_velocidad_difuso.c: 151: static double TP_CambioError_ceNP_equal(double x){
+[v _TP_CambioError_ceNP_equal `(d ~T0 @X0 1 sf1`d ]
+{
+[e :U _TP_CambioError_ceNP_equal ]
+[v _x `d ~T0 @X0 1 r1 ]
+[f ]
+"152
+[; ;lib_pic/Control_velocidad_difuso.c: 152:    return MF_xfsg_triangle_equal(x,-8.0,8.0,0.06274509803921569,-4.0,-2.0,0.0);
+[e ) ( _MF_xfsg_triangle_equal (4 , , , , , , _x -U .8.0 .8.0 .0.06274509803921569 -U .4.0 -U .2.0 .0.0 ]
+[e $UE 23  ]
+"153
+[; ;lib_pic/Control_velocidad_difuso.c: 153: }
+[e :UE 23 ]
+}
+"159
+[; ;lib_pic/Control_velocidad_difuso.c: 159: static double TP_CambioError_ceZ_equal(double x){
+[v _TP_CambioError_ceZ_equal `(d ~T0 @X0 1 sf1`d ]
+{
+[e :U _TP_CambioError_ceZ_equal ]
+[v _x `d ~T0 @X0 1 r1 ]
+[f ]
+"160
+[; ;lib_pic/Control_velocidad_difuso.c: 160:    return MF_xfsg_triangle_equal(x,-8.0,8.0,0.06274509803921569,-2.0,0.0,2.0);
+[e ) ( _MF_xfsg_triangle_equal (4 , , , , , , _x -U .8.0 .8.0 .0.06274509803921569 -U .2.0 .0.0 .2.0 ]
+[e $UE 24  ]
+"161
+[; ;lib_pic/Control_velocidad_difuso.c: 161: }
+[e :UE 24 ]
+}
+"167
+[; ;lib_pic/Control_velocidad_difuso.c: 167: static double TP_CambioError_cePP_equal(double x){
+[v _TP_CambioError_cePP_equal `(d ~T0 @X0 1 sf1`d ]
+{
+[e :U _TP_CambioError_cePP_equal ]
+[v _x `d ~T0 @X0 1 r1 ]
+[f ]
+"168
+[; ;lib_pic/Control_velocidad_difuso.c: 168:    return MF_xfsg_triangle_equal(x,-8.0,8.0,0.06274509803921569,0.0,2.0,4.0);
+[e ) ( _MF_xfsg_triangle_equal (4 , , , , , , _x -U .8.0 .8.0 .0.06274509803921569 .0.0 .2.0 .4.0 ]
+[e $UE 25  ]
+"169
+[; ;lib_pic/Control_velocidad_difuso.c: 169: }
+[e :UE 25 ]
+}
+"175
+[; ;lib_pic/Control_velocidad_difuso.c: 175: static double TP_CambioError_cePM_equal(double x){
+[v _TP_CambioError_cePM_equal `(d ~T0 @X0 1 sf1`d ]
+{
+[e :U _TP_CambioError_cePM_equal ]
+[v _x `d ~T0 @X0 1 r1 ]
+[f ]
+"176
+[; ;lib_pic/Control_velocidad_difuso.c: 176:    return MF_xfsg_triangle_equal(x,-8.0,8.0,0.06274509803921569,2.0,4.0,6.0);
+[e ) ( _MF_xfsg_triangle_equal (4 , , , , , , _x -U .8.0 .8.0 .0.06274509803921569 .2.0 .4.0 .6.0 ]
+[e $UE 26  ]
+"177
+[; ;lib_pic/Control_velocidad_difuso.c: 177: }
+[e :UE 26 ]
+}
+"183
+[; ;lib_pic/Control_velocidad_difuso.c: 183: static double TP_CambioError_cePG_equal(double x){
+[v _TP_CambioError_cePG_equal `(d ~T0 @X0 1 sf1`d ]
+{
+[e :U _TP_CambioError_cePG_equal ]
+[v _x `d ~T0 @X0 1 r1 ]
+[f ]
+"184
+[; ;lib_pic/Control_velocidad_difuso.c: 184:    return MF_xfsg_triangle_equal(x,-8.0,8.0,0.06274509803921569,4.0,6.0,8.0);
+[e ) ( _MF_xfsg_triangle_equal (4 , , , , , , _x -U .8.0 .8.0 .0.06274509803921569 .4.0 .6.0 .8.0 ]
+[e $UE 27  ]
+"185
+[; ;lib_pic/Control_velocidad_difuso.c: 185: }
+[e :UE 27 ]
+}
+"195
+[; ;lib_pic/Control_velocidad_difuso.c: 195: static double TP_salida_sNG_equal(double x){
+[v _TP_salida_sNG_equal `(d ~T0 @X0 1 sf1`d ]
+{
+[e :U _TP_salida_sNG_equal ]
+[v _x `d ~T0 @X0 1 r1 ]
+[f ]
+"196
+[; ;lib_pic/Control_velocidad_difuso.c: 196:    return MF_xfsg_triangle_equal(x,-1.0,1.0,0.00784313725490196,-1.0,-0.75,-0.5);
+[e ) ( _MF_xfsg_triangle_equal (4 , , , , , , _x -U .1.0 .1.0 .0.00784313725490196 -U .1.0 -U .0.75 -U .0.5 ]
+[e $UE 28  ]
+"197
+[; ;lib_pic/Control_velocidad_difuso.c: 197: }
+[e :UE 28 ]
+}
+"199
+[; ;lib_pic/Control_velocidad_difuso.c: 199: static double TP_salida_sNG_center(){
+[v _TP_salida_sNG_center `(d ~T0 @X0 1 sf ]
+{
+[e :U _TP_salida_sNG_center ]
+[f ]
+"200
+[; ;lib_pic/Control_velocidad_difuso.c: 200:    return -0.75;
+[e ) -U .0.75 ]
+[e $UE 29  ]
+"201
+[; ;lib_pic/Control_velocidad_difuso.c: 201: }
+[e :UE 29 ]
+}
+"207
+[; ;lib_pic/Control_velocidad_difuso.c: 207: static double TP_salida_sNM_equal(double x){
+[v _TP_salida_sNM_equal `(d ~T0 @X0 1 sf1`d ]
+{
+[e :U _TP_salida_sNM_equal ]
+[v _x `d ~T0 @X0 1 r1 ]
+[f ]
+"208
+[; ;lib_pic/Control_velocidad_difuso.c: 208:    return MF_xfsg_triangle_equal(x,-1.0,1.0,0.00784313725490196,-0.75,-0.5,-0.25);
+[e ) ( _MF_xfsg_triangle_equal (4 , , , , , , _x -U .1.0 .1.0 .0.00784313725490196 -U .0.75 -U .0.5 -U .0.25 ]
+[e $UE 30  ]
+"209
+[; ;lib_pic/Control_velocidad_difuso.c: 209: }
+[e :UE 30 ]
+}
+"211
+[; ;lib_pic/Control_velocidad_difuso.c: 211: static double TP_salida_sNM_center(){
+[v _TP_salida_sNM_center `(d ~T0 @X0 1 sf ]
+{
+[e :U _TP_salida_sNM_center ]
+[f ]
+"212
+[; ;lib_pic/Control_velocidad_difuso.c: 212:    return -0.5;
+[e ) -U .0.5 ]
+[e $UE 31  ]
+"213
+[; ;lib_pic/Control_velocidad_difuso.c: 213: }
+[e :UE 31 ]
+}
+"219
+[; ;lib_pic/Control_velocidad_difuso.c: 219: static double TP_salida_sNP_equal(double x){
+[v _TP_salida_sNP_equal `(d ~T0 @X0 1 sf1`d ]
+{
+[e :U _TP_salida_sNP_equal ]
+[v _x `d ~T0 @X0 1 r1 ]
+[f ]
+"220
+[; ;lib_pic/Control_velocidad_difuso.c: 220:    return MF_xfsg_triangle_equal(x,-1.0,1.0,0.00784313725490196,-0.5,-0.25,0.0);
+[e ) ( _MF_xfsg_triangle_equal (4 , , , , , , _x -U .1.0 .1.0 .0.00784313725490196 -U .0.5 -U .0.25 .0.0 ]
+[e $UE 32  ]
+"221
+[; ;lib_pic/Control_velocidad_difuso.c: 221: }
+[e :UE 32 ]
+}
+"223
+[; ;lib_pic/Control_velocidad_difuso.c: 223: static double TP_salida_sNP_center(){
+[v _TP_salida_sNP_center `(d ~T0 @X0 1 sf ]
+{
+[e :U _TP_salida_sNP_center ]
+[f ]
+"224
+[; ;lib_pic/Control_velocidad_difuso.c: 224:    return -0.25;
+[e ) -U .0.25 ]
+[e $UE 33  ]
+"225
+[; ;lib_pic/Control_velocidad_difuso.c: 225: }
+[e :UE 33 ]
+}
+"231
+[; ;lib_pic/Control_velocidad_difuso.c: 231: static double TP_salida_sZ_equal(double x){
+[v _TP_salida_sZ_equal `(d ~T0 @X0 1 sf1`d ]
+{
+[e :U _TP_salida_sZ_equal ]
+[v _x `d ~T0 @X0 1 r1 ]
+[f ]
+"232
+[; ;lib_pic/Control_velocidad_difuso.c: 232:    return MF_xfsg_triangle_equal(x,-1.0,1.0,0.00784313725490196,-0.25,0.0,0.25);
+[e ) ( _MF_xfsg_triangle_equal (4 , , , , , , _x -U .1.0 .1.0 .0.00784313725490196 -U .0.25 .0.0 .0.25 ]
+[e $UE 34  ]
+"233
+[; ;lib_pic/Control_velocidad_difuso.c: 233: }
+[e :UE 34 ]
+}
+"235
+[; ;lib_pic/Control_velocidad_difuso.c: 235: static double TP_salida_sZ_center(){
+[v _TP_salida_sZ_center `(d ~T0 @X0 1 sf ]
+{
+[e :U _TP_salida_sZ_center ]
+[f ]
+"236
+[; ;lib_pic/Control_velocidad_difuso.c: 236:    return 0.0;
+[e ) .0.0 ]
+[e $UE 35  ]
+"237
+[; ;lib_pic/Control_velocidad_difuso.c: 237: }
+[e :UE 35 ]
+}
+"243
+[; ;lib_pic/Control_velocidad_difuso.c: 243: static double TP_salida_sPP_equal(double x){
+[v _TP_salida_sPP_equal `(d ~T0 @X0 1 sf1`d ]
+{
+[e :U _TP_salida_sPP_equal ]
+[v _x `d ~T0 @X0 1 r1 ]
+[f ]
+"244
+[; ;lib_pic/Control_velocidad_difuso.c: 244:    return MF_xfsg_triangle_equal(x,-1.0,1.0,0.00784313725490196,0.0,0.25,0.5);
+[e ) ( _MF_xfsg_triangle_equal (4 , , , , , , _x -U .1.0 .1.0 .0.00784313725490196 .0.0 .0.25 .0.5 ]
+[e $UE 36  ]
+"245
+[; ;lib_pic/Control_velocidad_difuso.c: 245: }
+[e :UE 36 ]
+}
+"247
+[; ;lib_pic/Control_velocidad_difuso.c: 247: static double TP_salida_sPP_center(){
+[v _TP_salida_sPP_center `(d ~T0 @X0 1 sf ]
+{
+[e :U _TP_salida_sPP_center ]
+[f ]
+"248
+[; ;lib_pic/Control_velocidad_difuso.c: 248:    return 0.25;
+[e ) .0.25 ]
+[e $UE 37  ]
+"249
+[; ;lib_pic/Control_velocidad_difuso.c: 249: }
+[e :UE 37 ]
+}
+"255
+[; ;lib_pic/Control_velocidad_difuso.c: 255: static double TP_salida_sPM_equal(double x){
+[v _TP_salida_sPM_equal `(d ~T0 @X0 1 sf1`d ]
+{
+[e :U _TP_salida_sPM_equal ]
+[v _x `d ~T0 @X0 1 r1 ]
+[f ]
+"256
+[; ;lib_pic/Control_velocidad_difuso.c: 256:    return MF_xfsg_triangle_equal(x,-1.0,1.0,0.00784313725490196,0.25,0.5,0.75);
+[e ) ( _MF_xfsg_triangle_equal (4 , , , , , , _x -U .1.0 .1.0 .0.00784313725490196 .0.25 .0.5 .0.75 ]
+[e $UE 38  ]
+"257
+[; ;lib_pic/Control_velocidad_difuso.c: 257: }
+[e :UE 38 ]
+}
+"259
+[; ;lib_pic/Control_velocidad_difuso.c: 259: static double TP_salida_sPM_center(){
+[v _TP_salida_sPM_center `(d ~T0 @X0 1 sf ]
+{
+[e :U _TP_salida_sPM_center ]
+[f ]
+"260
+[; ;lib_pic/Control_velocidad_difuso.c: 260:    return 0.5;
+[e ) .0.5 ]
+[e $UE 39  ]
+"261
+[; ;lib_pic/Control_velocidad_difuso.c: 261: }
+[e :UE 39 ]
+}
+"267
+[; ;lib_pic/Control_velocidad_difuso.c: 267: static double TP_salida_sPG_equal(double x){
+[v _TP_salida_sPG_equal `(d ~T0 @X0 1 sf1`d ]
+{
+[e :U _TP_salida_sPG_equal ]
+[v _x `d ~T0 @X0 1 r1 ]
+[f ]
+"268
+[; ;lib_pic/Control_velocidad_difuso.c: 268:    return MF_xfsg_triangle_equal(x,-1.0,1.0,0.00784313725490196,0.5,0.75,1.0);
+[e ) ( _MF_xfsg_triangle_equal (4 , , , , , , _x -U .1.0 .1.0 .0.00784313725490196 .0.5 .0.75 .1.0 ]
+[e $UE 40  ]
+"269
+[; ;lib_pic/Control_velocidad_difuso.c: 269: }
+[e :UE 40 ]
+}
+"271
+[; ;lib_pic/Control_velocidad_difuso.c: 271: static double TP_salida_sPG_center(){
+[v _TP_salida_sPG_center `(d ~T0 @X0 1 sf ]
+{
+[e :U _TP_salida_sPG_center ]
+[f ]
+"272
+[; ;lib_pic/Control_velocidad_difuso.c: 272:    return 0.75;
+[e ) .0.75 ]
+[e $UE 41  ]
+"273
+[; ;lib_pic/Control_velocidad_difuso.c: 273: }
+[e :UE 41 ]
+}
+"279
+[; ;lib_pic/Control_velocidad_difuso.c: 279: static void RL_reglas_controlador(double error, double CambioError, double *Salida) {
+[v _RL_reglas_controlador `(v ~T0 @X0 1 sf3`d`d`*d ]
+{
+[e :U _RL_reglas_controlador ]
+[v _error `d ~T0 @X0 1 r1 ]
+[v _CambioError `d ~T0 @X0 1 r2 ]
+[v _Salida `*d ~T0 @X0 1 r3 ]
+[f ]
+"280
+[; ;lib_pic/Control_velocidad_difuso.c: 280:  double _rl;
+[v __rl `d ~T0 @X0 1 a ]
+"282
+[; ;lib_pic/Control_velocidad_difuso.c: 282:  double _Salida_degree[7];
+[v __Salida_degree `d ~T0 @X0 -> 7 `i a ]
+"283
+[; ;lib_pic/Control_velocidad_difuso.c: 283:  Consequent _Salida_conc[7];
+[v __Salida_conc `S3 ~T0 @X0 -> 7 `i a ]
+"284
+[; ;lib_pic/Control_velocidad_difuso.c: 284:  FuzzyNumber _Salida;
+[v __Salida `S4 ~T0 @X0 1 a ]
+"285
+[; ;lib_pic/Control_velocidad_difuso.c: 285:  _Salida.min = -1.0;
+[e = . __Salida 0 -U .1.0 ]
+"286
+[; ;lib_pic/Control_velocidad_difuso.c: 286:  _Salida.max = 1.0;
+[e = . __Salida 1 .1.0 ]
+"287
+[; ;lib_pic/Control_velocidad_difuso.c: 287:  _Salida.step = 0.00784313725490196;
+[e = . __Salida 2 .0.00784313725490196 ]
+"288
+[; ;lib_pic/Control_velocidad_difuso.c: 288:  _Salida.length = 7;
+[e = . __Salida 5 -> 7 `i ]
+"289
+[; ;lib_pic/Control_velocidad_difuso.c: 289:  _Salida.degree = _Salida_degree;
+[e = . __Salida 6 &U __Salida_degree ]
+"290
+[; ;lib_pic/Control_velocidad_difuso.c: 290:  _Salida.conc = _Salida_conc;
+[e = . __Salida 9 &U __Salida_conc ]
+"291
+[; ;lib_pic/Control_velocidad_difuso.c: 291:  int _Salida_i = 0;
+[v __Salida_i `i ~T0 @X0 1 a ]
+[e = __Salida_i -> 0 `i ]
+"293
+[; ;lib_pic/Control_velocidad_difuso.c: 293:  double _error_eq[7];
+[v __error_eq `d ~T0 @X0 -> 7 `i a ]
+"294
+[; ;lib_pic/Control_velocidad_difuso.c: 294:  _error_eq[0] = TP_error_eNG_equal(error);
+[e = *U + &U __error_eq * -> -> -> 0 `i `ui `ux -> -> # *U &U __error_eq `ui `ux ( _TP_error_eNG_equal (1 _error ]
+"295
+[; ;lib_pic/Control_velocidad_difuso.c: 295:  _error_eq[1] = TP_error_eNM_equal(error);
+[e = *U + &U __error_eq * -> -> -> 1 `i `ui `ux -> -> # *U &U __error_eq `ui `ux ( _TP_error_eNM_equal (1 _error ]
+"296
+[; ;lib_pic/Control_velocidad_difuso.c: 296:  _error_eq[2] = TP_error_eNP_equal(error);
+[e = *U + &U __error_eq * -> -> -> 2 `i `ui `ux -> -> # *U &U __error_eq `ui `ux ( _TP_error_eNP_equal (1 _error ]
+"297
+[; ;lib_pic/Control_velocidad_difuso.c: 297:  _error_eq[3] = TP_error_eZ_equal(error);
+[e = *U + &U __error_eq * -> -> -> 3 `i `ui `ux -> -> # *U &U __error_eq `ui `ux ( _TP_error_eZ_equal (1 _error ]
+"298
+[; ;lib_pic/Control_velocidad_difuso.c: 298:  _error_eq[4] = TP_error_ePP_equal(error);
+[e = *U + &U __error_eq * -> -> -> 4 `i `ui `ux -> -> # *U &U __error_eq `ui `ux ( _TP_error_ePP_equal (1 _error ]
+"299
+[; ;lib_pic/Control_velocidad_difuso.c: 299:  _error_eq[5] = TP_error_ePM_equal(error);
+[e = *U + &U __error_eq * -> -> -> 5 `i `ui `ux -> -> # *U &U __error_eq `ui `ux ( _TP_error_ePM_equal (1 _error ]
+"300
+[; ;lib_pic/Control_velocidad_difuso.c: 300:  _error_eq[6] = TP_error_ePG_equal(error);
+[e = *U + &U __error_eq * -> -> -> 6 `i `ui `ux -> -> # *U &U __error_eq `ui `ux ( _TP_error_ePG_equal (1 _error ]
+"302
+[; ;lib_pic/Control_velocidad_difuso.c: 302:  double _CambioError_eq[7];
+[v __CambioError_eq `d ~T0 @X0 -> 7 `i a ]
+"303
+[; ;lib_pic/Control_velocidad_difuso.c: 303:  _CambioError_eq[0] = TP_CambioError_ceNG_equal(CambioError);
+[e = *U + &U __CambioError_eq * -> -> -> 0 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _TP_CambioError_ceNG_equal (1 _CambioError ]
+"304
+[; ;lib_pic/Control_velocidad_difuso.c: 304:  _CambioError_eq[1] = TP_CambioError_ceNM_equal(CambioError);
+[e = *U + &U __CambioError_eq * -> -> -> 1 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _TP_CambioError_ceNM_equal (1 _CambioError ]
+"305
+[; ;lib_pic/Control_velocidad_difuso.c: 305:  _CambioError_eq[2] = TP_CambioError_ceNP_equal(CambioError);
+[e = *U + &U __CambioError_eq * -> -> -> 2 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _TP_CambioError_ceNP_equal (1 _CambioError ]
+"306
+[; ;lib_pic/Control_velocidad_difuso.c: 306:  _CambioError_eq[3] = TP_CambioError_ceZ_equal(CambioError);
+[e = *U + &U __CambioError_eq * -> -> -> 3 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _TP_CambioError_ceZ_equal (1 _CambioError ]
+"307
+[; ;lib_pic/Control_velocidad_difuso.c: 307:  _CambioError_eq[4] = TP_CambioError_cePP_equal(CambioError);
+[e = *U + &U __CambioError_eq * -> -> -> 4 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _TP_CambioError_cePP_equal (1 _CambioError ]
+"308
+[; ;lib_pic/Control_velocidad_difuso.c: 308:  _CambioError_eq[5] = TP_CambioError_cePM_equal(CambioError);
+[e = *U + &U __CambioError_eq * -> -> -> 5 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _TP_CambioError_cePM_equal (1 _CambioError ]
+"309
+[; ;lib_pic/Control_velocidad_difuso.c: 309:  _CambioError_eq[6] = TP_CambioError_cePG_equal(CambioError);
+[e = *U + &U __CambioError_eq * -> -> -> 6 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _TP_CambioError_cePG_equal (1 _CambioError ]
+"311
+[; ;lib_pic/Control_velocidad_difuso.c: 311:  _rl = OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_And(_error_eq[0],_CambioError_eq[1]),OP_operador_And(_error_eq[0],_CambioError_eq[0])),OP_operador_And(_error_eq[0],_CambioError_eq[2])),OP_operador_And(_error_eq[0],_CambioError_eq[3])),OP_operador_And(_error_eq[1],_CambioError_eq[0])),OP_operador_And(_error_eq[1],_CambioError_eq[1])),OP_operador_And(_error_eq[1],_CambioError_eq[2])),OP_operador_And(_error_eq[2],_CambioError_eq[0])),OP_operador_And(_error_eq[3],_CambioError_eq[0])),OP_operador_And(_error_eq[2],_CambioError_eq[1]));
+[e = __rl ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 0 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 1 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 0 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 0 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 0 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 2 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 0 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 3 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 1 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 0 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 1 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 1 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 1 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 2 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 2 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 0 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 3 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 0 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 2 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 1 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ]
+"312
+[; ;lib_pic/Control_velocidad_difuso.c: 312:  _Salida_degree[_Salida_i] = _rl;
+[e = *U + &U __Salida_degree * -> -> __Salida_i `ui `ux -> -> # *U &U __Salida_degree `ui `ux __rl ]
+"313
+[; ;lib_pic/Control_velocidad_difuso.c: 313:  _Salida_conc[_Salida_i].equal = TP_salida_sNG_equal;
+[e = . *U + &U __Salida_conc * -> -> __Salida_i `ui `ux -> -> # *U &U __Salida_conc `ui `ux 0 &U _TP_salida_sNG_equal ]
+"314
+[; ;lib_pic/Control_velocidad_difuso.c: 314:  _Salida_conc[_Salida_i].center = TP_salida_sNG_center;
+[e = . *U + &U __Salida_conc * -> -> __Salida_i `ui `ux -> -> # *U &U __Salida_conc `ui `ux 1 &U _TP_salida_sNG_center ]
+"315
+[; ;lib_pic/Control_velocidad_difuso.c: 315:  _Salida_i++;
+[e ++ __Salida_i -> 1 `i ]
+"317
+[; ;lib_pic/Control_velocidad_difuso.c: 317:  _rl = OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_And(_error_eq[1],_CambioError_eq[3]),OP_operador_And(_error_eq[0],_CambioError_eq[4])),OP_operador_And(_error_eq[2],_CambioError_eq[2])),OP_operador_And(_error_eq[4],_CambioError_eq[0])),OP_operador_And(_error_eq[3],_CambioError_eq[1]));
+[e = __rl ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 1 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 3 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 0 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 4 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 2 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 2 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 4 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 0 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 3 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 1 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ]
+"318
+[; ;lib_pic/Control_velocidad_difuso.c: 318:  _Salida_degree[_Salida_i] = _rl;
+[e = *U + &U __Salida_degree * -> -> __Salida_i `ui `ux -> -> # *U &U __Salida_degree `ui `ux __rl ]
+"319
+[; ;lib_pic/Control_velocidad_difuso.c: 319:  _Salida_conc[_Salida_i].equal = TP_salida_sNM_equal;
+[e = . *U + &U __Salida_conc * -> -> __Salida_i `ui `ux -> -> # *U &U __Salida_conc `ui `ux 0 &U _TP_salida_sNM_equal ]
+"320
+[; ;lib_pic/Control_velocidad_difuso.c: 320:  _Salida_conc[_Salida_i].center = TP_salida_sNM_center;
+[e = . *U + &U __Salida_conc * -> -> __Salida_i `ui `ux -> -> # *U &U __Salida_conc `ui `ux 1 &U _TP_salida_sNM_center ]
+"321
+[; ;lib_pic/Control_velocidad_difuso.c: 321:  _Salida_i++;
+[e ++ __Salida_i -> 1 `i ]
+"323
+[; ;lib_pic/Control_velocidad_difuso.c: 323:  _rl = OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_And(_error_eq[1],_CambioError_eq[4]),OP_operador_And(_error_eq[0],_CambioError_eq[5])),OP_operador_And(_error_eq[2],_CambioError_eq[3])),OP_operador_And(_error_eq[3],_CambioError_eq[2])),OP_operador_And(_error_eq[5],_CambioError_eq[0])),OP_operador_And(_error_eq[4],_CambioError_eq[1]));
+[e = __rl ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 1 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 4 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 0 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 5 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 2 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 3 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 3 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 2 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 5 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 0 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 4 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 1 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ]
+"324
+[; ;lib_pic/Control_velocidad_difuso.c: 324:  _Salida_degree[_Salida_i] = _rl;
+[e = *U + &U __Salida_degree * -> -> __Salida_i `ui `ux -> -> # *U &U __Salida_degree `ui `ux __rl ]
+"325
+[; ;lib_pic/Control_velocidad_difuso.c: 325:  _Salida_conc[_Salida_i].equal = TP_salida_sNP_equal;
+[e = . *U + &U __Salida_conc * -> -> __Salida_i `ui `ux -> -> # *U &U __Salida_conc `ui `ux 0 &U _TP_salida_sNP_equal ]
+"326
+[; ;lib_pic/Control_velocidad_difuso.c: 326:  _Salida_conc[_Salida_i].center = TP_salida_sNP_center;
+[e = . *U + &U __Salida_conc * -> -> __Salida_i `ui `ux -> -> # *U &U __Salida_conc `ui `ux 1 &U _TP_salida_sNP_center ]
+"327
+[; ;lib_pic/Control_velocidad_difuso.c: 327:  _Salida_i++;
+[e ++ __Salida_i -> 1 `i ]
+"329
+[; ;lib_pic/Control_velocidad_difuso.c: 329:  _rl = OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_And(_error_eq[1],_CambioError_eq[5]),OP_operador_And(_error_eq[0],_CambioError_eq[6])),OP_operador_And(_error_eq[2],_CambioError_eq[4])),OP_operador_And(_error_eq[3],_CambioError_eq[3])),OP_operador_And(_error_eq[4],_CambioError_eq[2])),OP_operador_And(_error_eq[6],_CambioError_eq[0])),OP_operador_And(_error_eq[5],_CambioError_eq[1]));
+[e = __rl ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 1 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 5 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 0 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 6 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 2 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 4 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 3 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 3 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 4 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 2 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 6 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 0 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 5 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 1 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ]
+"330
+[; ;lib_pic/Control_velocidad_difuso.c: 330:  _Salida_degree[_Salida_i] = _rl;
+[e = *U + &U __Salida_degree * -> -> __Salida_i `ui `ux -> -> # *U &U __Salida_degree `ui `ux __rl ]
+"331
+[; ;lib_pic/Control_velocidad_difuso.c: 331:  _Salida_conc[_Salida_i].equal = TP_salida_sZ_equal;
+[e = . *U + &U __Salida_conc * -> -> __Salida_i `ui `ux -> -> # *U &U __Salida_conc `ui `ux 0 &U _TP_salida_sZ_equal ]
+"332
+[; ;lib_pic/Control_velocidad_difuso.c: 332:  _Salida_conc[_Salida_i].center = TP_salida_sZ_center;
+[e = . *U + &U __Salida_conc * -> -> __Salida_i `ui `ux -> -> # *U &U __Salida_conc `ui `ux 1 &U _TP_salida_sZ_center ]
+"333
+[; ;lib_pic/Control_velocidad_difuso.c: 333:  _Salida_i++;
+[e ++ __Salida_i -> 1 `i ]
+"335
+[; ;lib_pic/Control_velocidad_difuso.c: 335:  _rl = OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_And(_error_eq[2],_CambioError_eq[5]),OP_operador_And(_error_eq[1],_CambioError_eq[6])),OP_operador_And(_error_eq[3],_CambioError_eq[4])),OP_operador_And(_error_eq[4],_CambioError_eq[3])),OP_operador_And(_error_eq[6],_CambioError_eq[1])),OP_operador_And(_error_eq[5],_CambioError_eq[2]));
+[e = __rl ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 2 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 5 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 1 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 6 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 3 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 4 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 4 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 3 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 6 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 1 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 5 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 2 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ]
+"336
+[; ;lib_pic/Control_velocidad_difuso.c: 336:  _Salida_degree[_Salida_i] = _rl;
+[e = *U + &U __Salida_degree * -> -> __Salida_i `ui `ux -> -> # *U &U __Salida_degree `ui `ux __rl ]
+"337
+[; ;lib_pic/Control_velocidad_difuso.c: 337:  _Salida_conc[_Salida_i].equal = TP_salida_sPP_equal;
+[e = . *U + &U __Salida_conc * -> -> __Salida_i `ui `ux -> -> # *U &U __Salida_conc `ui `ux 0 &U _TP_salida_sPP_equal ]
+"338
+[; ;lib_pic/Control_velocidad_difuso.c: 338:  _Salida_conc[_Salida_i].center = TP_salida_sPP_center;
+[e = . *U + &U __Salida_conc * -> -> __Salida_i `ui `ux -> -> # *U &U __Salida_conc `ui `ux 1 &U _TP_salida_sPP_center ]
+"339
+[; ;lib_pic/Control_velocidad_difuso.c: 339:  _Salida_i++;
+[e ++ __Salida_i -> 1 `i ]
+"341
+[; ;lib_pic/Control_velocidad_difuso.c: 341:  _rl = OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_And(_error_eq[3],_CambioError_eq[5]),OP_operador_And(_error_eq[2],_CambioError_eq[6])),OP_operador_And(_error_eq[4],_CambioError_eq[4])),OP_operador_And(_error_eq[6],_CambioError_eq[2])),OP_operador_And(_error_eq[5],_CambioError_eq[3]));
+[e = __rl ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 3 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 5 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 2 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 6 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 4 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 4 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 6 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 2 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 5 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 3 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ]
+"342
+[; ;lib_pic/Control_velocidad_difuso.c: 342:  _Salida_degree[_Salida_i] = _rl;
+[e = *U + &U __Salida_degree * -> -> __Salida_i `ui `ux -> -> # *U &U __Salida_degree `ui `ux __rl ]
+"343
+[; ;lib_pic/Control_velocidad_difuso.c: 343:  _Salida_conc[_Salida_i].equal = TP_salida_sPM_equal;
+[e = . *U + &U __Salida_conc * -> -> __Salida_i `ui `ux -> -> # *U &U __Salida_conc `ui `ux 0 &U _TP_salida_sPM_equal ]
+"344
+[; ;lib_pic/Control_velocidad_difuso.c: 344:  _Salida_conc[_Salida_i].center = TP_salida_sPM_center;
+[e = . *U + &U __Salida_conc * -> -> __Salida_i `ui `ux -> -> # *U &U __Salida_conc `ui `ux 1 &U _TP_salida_sPM_center ]
+"345
+[; ;lib_pic/Control_velocidad_difuso.c: 345:  _Salida_i++;
+[e ++ __Salida_i -> 1 `i ]
+"347
+[; ;lib_pic/Control_velocidad_difuso.c: 347:  _rl = OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_Or(OP_operador_And(_error_eq[4],_CambioError_eq[5]),OP_operador_And(_error_eq[3],_CambioError_eq[6])),OP_operador_And(_error_eq[4],_CambioError_eq[6])),OP_operador_And(_error_eq[5],_CambioError_eq[4])),OP_operador_And(_error_eq[5],_CambioError_eq[5])),OP_operador_And(_error_eq[5],_CambioError_eq[6])),OP_operador_And(_error_eq[6],_CambioError_eq[3])),OP_operador_And(_error_eq[6],_CambioError_eq[4])),OP_operador_And(_error_eq[6],_CambioError_eq[6])),OP_operador_And(_error_eq[6],_CambioError_eq[5]));
+[e = __rl ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_Or (2 , ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 4 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 5 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 3 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 6 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 4 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 6 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 5 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 4 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 5 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 5 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 5 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 6 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 6 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 3 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 6 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 4 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 6 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 6 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ( _OP_operador_And (2 , *U + &U __error_eq * -> -> -> 6 `i `ui `ux -> -> # *U &U __error_eq `ui `ux *U + &U __CambioError_eq * -> -> -> 5 `i `ui `ux -> -> # *U &U __CambioError_eq `ui `ux ]
+"348
+[; ;lib_pic/Control_velocidad_difuso.c: 348:  _Salida_degree[_Salida_i] = _rl;
+[e = *U + &U __Salida_degree * -> -> __Salida_i `ui `ux -> -> # *U &U __Salida_degree `ui `ux __rl ]
+"349
+[; ;lib_pic/Control_velocidad_difuso.c: 349:  _Salida_conc[_Salida_i].equal = TP_salida_sPG_equal;
+[e = . *U + &U __Salida_conc * -> -> __Salida_i `ui `ux -> -> # *U &U __Salida_conc `ui `ux 0 &U _TP_salida_sPG_equal ]
+"350
+[; ;lib_pic/Control_velocidad_difuso.c: 350:  _Salida_conc[_Salida_i].center = TP_salida_sPG_center;
+[e = . *U + &U __Salida_conc * -> -> __Salida_i `ui `ux -> -> # *U &U __Salida_conc `ui `ux 1 &U _TP_salida_sPG_center ]
+"351
+[; ;lib_pic/Control_velocidad_difuso.c: 351:  _Salida_i++;
+[e ++ __Salida_i -> 1 `i ]
+"353
+[; ;lib_pic/Control_velocidad_difuso.c: 353:  *Salida = OP_operador_Defuz(_Salida);
+[e = *U _Salida ( _OP_operador_Defuz (1 __Salida ]
+"354
+[; ;lib_pic/Control_velocidad_difuso.c: 354: }
+[e :UE 42 ]
+}
+"361
+[; ;lib_pic/Control_velocidad_difuso.c: 361: void Control_velocidad_difusoInferenceEngine(double error, double CambioError, double *_d_Salida) {
+[v _Control_velocidad_difusoInferenceEngine `(v ~T0 @X0 1 ef3`d`d`*d ]
+{
+[e :U _Control_velocidad_difusoInferenceEngine ]
+[v _error `d ~T0 @X0 1 r1 ]
+[v _CambioError `d ~T0 @X0 1 r2 ]
+[v __d_Salida `*d ~T0 @X0 1 r3 ]
+[f ]
+"362
+[; ;lib_pic/Control_velocidad_difuso.c: 362:  double Salida;
+[v _Salida `d ~T0 @X0 1 a ]
+"363
+[; ;lib_pic/Control_velocidad_difuso.c: 363:  RL_reglas_controlador(error, CambioError, &Salida);
+[e ( _RL_reglas_controlador (3 , , _error _CambioError &U _Salida ]
+"364
+[; ;lib_pic/Control_velocidad_difuso.c: 364:  *_d_Salida = Salida;
+[e = *U __d_Salida _Salida ]
+"365
+[; ;lib_pic/Control_velocidad_difuso.c: 365: }
+[e :UE 43 ]
+}
